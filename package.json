@@ -1,0 +1,42 @@
+{
+  "name": "obix-monorepo",
+  "version": "0.2.1",
+  "private": true,
+  "description": "OBIX 1.0 — DOP-Native Component Language. Monorepo for the twenty @obinexusltd/obix-* public packages.",
+  "license": "MIT",
+  "author": "OBINexus Computing — Nnamdi Michael Okpala <obinexusmk2@proton.me>",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "scripts": {
+    "build": "node scripts/build-all.mjs",
+    "clean": "node scripts/clean.mjs",
+    "test": "node scripts/run-tests.mjs",
+    "test:unit": "node scripts/run-tests.mjs --unit",
+    "test:packages": "node scripts/check-package-structure.mjs",
+    "test:equivalence": "node scripts/run-equivalence.mjs",
+    "test:timer": "node scripts/run-timer-terminal.mjs",
+    "test:cycles": "node scripts/check-cycles.mjs",
+    "test:graph": "node scripts/check-graph-rules.mjs",
+    "test:runtime-budget": "node scripts/check-runtime-budget.mjs",
+    "test:ssr-purity": "node scripts/check-ssr-purity.mjs",
+    "test:a11y-required": "node scripts/check-a11y-required.mjs",
+    "check:versions": "node scripts/check-obix-versions.mjs",
+    "check:graph": "node scripts/check-graph-rules.mjs",
+    "pack:dry-run": "node scripts/pack-report.mjs",
+    "ci": "node scripts/ci.mjs",
+    "publish:all": "node scripts/publish-all.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.7.2"
+  },
+  "allowScripts": {
+    "esbuild@0.24.2": true
+  }
+}

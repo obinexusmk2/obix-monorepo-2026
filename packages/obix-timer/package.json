@@ -1,0 +1,42 @@
+{
+  "name": "@obinexusltd/obix-timer",
+  "version": "0.2.1",
+  "description": "The frozen OBIX golden fixture: Timer.obix, its behavioural + contract tests, the compiled TimerDOP artifact, and expected trace metadata. A leaf package — nothing in the compiler/runtime/adapters depends on it.",
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./Timer.obix": "./fixture/Timer.obix",
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "fixture", "fixtures", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@obinexusltd/obix-spec": "0.2.1",
+    "@obinexusltd/obix-ir": "0.2.1",
+    "@obinexusltd/obix-adapter-data": "0.2.1",
+    "@obinexusltd/obix-adapter-functional": "0.2.1",
+    "@obinexusltd/obix-adapter-oop": "0.2.1",
+    "@obinexusltd/obix-adapter-reactive": "0.2.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obinexusmk2/obix-monorepo-2026.git",
+    "directory": "packages/obix-timer"
+  }
+}

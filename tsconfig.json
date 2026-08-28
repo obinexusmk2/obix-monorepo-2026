@@ -1,0 +1,26 @@
+{
+  "// note": "Editor/typecheck aggregate. The authoritative build is `node scripts/build-all.mjs`, which compiles packages in dependency order.",
+  "files": [],
+  "references": [
+    { "path": "packages/obix-spec" },
+    { "path": "packages/obix-ir" },
+    { "path": "packages/obix-parser" },
+    { "path": "packages/obix-template" },
+    { "path": "packages/obix-styles" },
+    { "path": "packages/obix-effects" },
+    { "path": "packages/obix-validator" },
+    { "path": "packages/obix-accessibility" },
+    { "path": "packages/obix-runtime" },
+    { "path": "packages/obix-compiler" },
+    { "path": "packages/obix-adapter-data" },
+    { "path": "packages/obix-adapter-functional" },
+    { "path": "packages/obix-adapter-oop" },
+    { "path": "packages/obix-adapter-reactive" },
+    { "path": "packages/obix-adapter-native" },
+    { "path": "packages/obix-adapter-ssr" },
+    { "path": "packages/obix-test" },
+    { "path": "packages/obix-cli" },
+    { "path": "packages/obix-language-server" },
+    { "path": "packages/obix-timer" }
+  ]
+}

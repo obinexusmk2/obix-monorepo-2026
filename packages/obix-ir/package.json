@@ -1,0 +1,36 @@
+{
+  "name": "@obinexusltd/obix-ir",
+  "version": "0.2.1",
+  "description": "Canonical DOP artifact construction and the shared adapter execution primitive applyAction(). Depends only on @obinexusltd/obix-spec.",
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@obinexusltd/obix-spec": "0.2.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obinexusmk2/obix-monorepo-2026.git",
+    "directory": "packages/obix-ir"
+  }
+}

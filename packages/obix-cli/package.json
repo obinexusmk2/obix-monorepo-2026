@@ -1,0 +1,41 @@
+{
+  "name": "@obinexusltd/obix-cli",
+  "version": "0.2.1",
+  "description": "The obixc command-line tool. Orchestrates the OBIX compiler, test harness and validator — it contains no compiler or test logic of its own.",
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "obixc": "./dist/bin/obixc.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@obinexusltd/obix-compiler": "0.2.1",
+    "@obinexusltd/obix-test": "0.2.1",
+    "@obinexusltd/obix-validator": "0.2.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obinexusmk2/obix-monorepo-2026.git",
+    "directory": "packages/obix-cli"
+  }
+}

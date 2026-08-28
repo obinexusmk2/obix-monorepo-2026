@@ -1,0 +1,50 @@
+// Timer.test.obix — behavioural TDD cases (Draft 0.2.1 Addendum A §5.1)
+
+test TerminalStateStopsTheClock {
+    given props { limitSeconds: 5 }
+    dispatch Start
+    advance 8000ms
+    expect state.seconds is 5
+    expect state.running is false
+    expect derived.finished is true
+    expect derived.statusLabel is "Finished"
+}
+
+test StartIsIdentityAtTheLimit {
+    given props { limitSeconds: 5 }
+    given state { seconds: 5, running: false }
+    dispatch Start
+    expect transitions is 0
+    expect state.running is false
+}
+
+test StartButtonIsDisabledAtTheLimit {
+    given props { limitSeconds: 5 }
+    given state { seconds: 5, running: false }
+    expect derived.cannotStart is true
+}
+
+test ResetIsTheWayOut {
+    given props { limitSeconds: 5 }
+    given state { seconds: 5, running: false }
+    dispatch Reset
+    dispatch Start
+    expect state.running is true
+    expect state.seconds is 0
+}
+
+test TickNeverDecreasesSeconds {
+    given props { limitSeconds: 5 }
+    given state { seconds: 8, running: true }
+    dispatch Tick
+    expect state.seconds is 8
+    expect state.running is false
+}
+
+test EffectQuiescesWithoutACompoundPredicate {
+    given props { limitSeconds: 5 }
+    dispatch Start
+    advance 20000ms
+    expect state.seconds is 5
+    expect transitions is 6
+}

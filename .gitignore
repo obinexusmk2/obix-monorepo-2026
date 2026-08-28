@@ -1,0 +1,55 @@
+# ─────────────────────────────────────────────────────────────
+# dependencies
+# ─────────────────────────────────────────────────────────────
+node_modules/
+.npm/
+npm-debug.log*
+
+# ─────────────────────────────────────────────────────────────
+# build output
+# ─────────────────────────────────────────────────────────────
+packages/*/dist/
+packages/*/*.tsbuildinfo
+*.tsbuildinfo
+.tsbuild/
+
+# ─────────────────────────────────────────────────────────────
+# test / tool scratch
+# ─────────────────────────────────────────────────────────────
+packages/*/test/__out__/
+.obix-build/
+coverage/
+*.tgz
+
+# ─────────────────────────────────────────────────────────────
+# editor / os
+# ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# ─────────────────────────────────────────────────────────────
+# Pre-existing legacy checkout in this working tree.
+# The OBIX 1.0 Level 0 monorepo is packages/ + scripts/ + docs/ + root config.
+# The category folders below are an earlier, unrelated layout kept on disk for
+# reference; they are their own (sometimes embedded) git checkouts and are NOT
+# part of this repository. Do not delete them — just don't track them here.
+# ─────────────────────────────────────────────────────────────
+/bindings/
+/cli/
+/components/
+/configs/
+/controls/
+/data/
+/demos/
+/drivers/
+/feedback/
+/forms/
+/navigation/
+/overlays/
+/runtime/
+/fixtures/
+/obix-monorepo/
+/docs/obix-docs/

@@ -1,0 +1,36 @@
+// Timer.obix.test — conformance contract clauses (Draft 0.2.1 Addendum A §5.2)
+
+dop {
+    action Start arity 3 reads props [limitSeconds]
+    action Tick  arity 3 reads props [limitSeconds]
+    derived finished: boolean
+    derived cannotStart: boolean
+    effect tick every 1000 dispatches Tick
+}
+
+invariant TickIsMonotone {
+    for any state: expect Tick state.seconds is not less than state.seconds
+}
+
+invariant LimitIsBinding {
+    given props { limitSeconds: 5 }
+    for any state: expect state.seconds is less than 6
+}
+
+invariant TerminalStateIsStopped {
+    given props { limitSeconds: 5 }
+    for any state where seconds >= 5: expect state.running is false
+}
+
+element StartButton {
+    select role "button" name "Start"
+    given state { seconds: 5, running: false } expect disabled true
+    given state { seconds: 0, running: false } expect disabled false
+}
+
+announce {
+    given props { limitSeconds: 1 }
+    dispatch Start
+    advance 1000ms
+    expect live-region Status announces "Finished"
+}
