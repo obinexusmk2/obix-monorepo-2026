@@ -59,7 +59,10 @@ Rules (informal — enforced by review, not a CI gate at this size):
 4. The equivalence reference fold in `obix-test` calls `def.actions[name]` directly — it does not go through `createStore`, `toFunc`, or `toClass`.
 
 Every package ships a `README.md`; all three are `type: module`, `sideEffects: false`,
-`private: false`, `publishConfig.access: "public"`, version `0.3.0`.
+`private: false`, `publishConfig.access: "public"`, version `0.3.0`. `obix-core` and
+`obix-test` publish under those names; the umbrella package (`suite/obix/`) publishes as
+**`obixjs`** — npm's name-similarity filter rejects the bare `obix`. Its `bin` is still
+`obix`, so the CLI command is unchanged.
 
 ---
 

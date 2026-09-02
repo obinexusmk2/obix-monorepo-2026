@@ -1,5 +1,5 @@
 {
-  "name": "obix",
+  "name": "obixjs",
   "version": "0.3.0",
   "description": "The OBIX application suite — bundle standard HTML + CSS + TypeScript Web Component apps. Re-exports obix-core, namespaces obix-test, and ships the `obix` CLI (create / dev / build / check).",
   "keywords": ["obix", "web-components", "custom-elements", "bundler", "cli", "accessibility", "data-oriented"],

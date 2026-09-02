@@ -1,13 +1,16 @@
-# obix
+# obixjs
 
 **The OBIX application suite.** One dependency for a whole app: re-exports the
 [`obix-core`](../obix-core) runtime, namespaces [`obix-test`](../obix-test) under
 `Test`, and ships the `obix` CLI.
 
 ```bash
-npm install obix          # dev dependency; obix-core is the runtime dependency
+npm install obixjs        # dev dependency; obix-core is the runtime dependency
 npx obix create my-app
 ```
+
+> Published as **`obixjs`** (the bare name `obix` is blocked by npm's
+> name-similarity filter). The CLI command is still `obix`.
 
 ## CLI
 
@@ -21,14 +24,14 @@ npx obix create my-app
 ## Programmatic
 
 ```ts
-import { defineElement, createStore, Test } from "obix";
-import { build, check } from "obix";
+import { defineElement, createStore, Test } from "obixjs";
+import { build, check } from "obixjs";
 
 await build({ cwd: "./my-app", outdir: "dist" });
 ```
 
 `export * from "obix-core"` — every core export (`defineElement`, `createStore`,
-`bindRoot`, `toFunc`, `toClass`, `auditHtml`, types …) is available from `obix`
+`bindRoot`, `toFunc`, `toClass`, `auditHtml`, types …) is available from `obixjs`
 too. `Test` is the full `obix-test` surface.
 
 ## No `.obix`
