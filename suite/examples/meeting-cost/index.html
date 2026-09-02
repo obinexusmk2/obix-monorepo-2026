@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OBIX — Meeting Cost Ticker</title>
+  <style>
+    /* page shell only — the component styles live in styles.css (shadow DOM) */
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      font: 1rem/1.5 system-ui, sans-serif;
+      background: Canvas;
+      color: CanvasText;
+    }
+    main { display: grid; gap: 1rem; padding: 2rem; width: min(28rem, 92vw); }
+    h1 { margin: 0; font-size: 1.05rem; font-weight: 600; opacity: 0.6; text-align: center; }
+    p.hint { margin: 0; text-align: center; font-size: 0.8rem; opacity: 0.5; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Meeting Cost Ticker</h1>
+    <meeting-cost currency="$" rate-step="5"></meeting-cost>
+    <p class="hint">Built with <strong>obix-core</strong> — plain HTML, CSS &amp; JS.</p>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

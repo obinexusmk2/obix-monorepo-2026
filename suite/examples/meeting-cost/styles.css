@@ -1,0 +1,107 @@
+/* meeting-cost — shadow-DOM stylesheet, loaded by app.js via
+   `styles: new URL("./styles.css", import.meta.url)` and applied as a
+   constructable stylesheet on the element's shadow root. */
+
+:host {
+  display: block;
+  --accent: #3b82f6;
+  --ok: #16a34a;
+  --warn: #b91c1c;
+  --line: color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.mc {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  font: 1rem/1.4 system-ui, sans-serif;
+}
+
+.mc[data-state="Running"] { border-color: var(--ok); }
+.mc[data-state="Paused"]  { border-color: var(--accent); }
+
+.mc__cost {
+  margin: 0;
+  font-size: 2.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.mc[data-state="Running"] .mc__cost { color: var(--ok); }
+
+.mc__meta {
+  margin: 0 0 0.25rem;
+  font-size: 0.85rem;
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+}
+
+.mc__stepper {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  gap: 0.5rem;
+}
+.mc__label { font-size: 0.9rem; opacity: 0.75; }
+.mc__num {
+  min-width: 4.5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.mc__pm {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.mc__pm:hover:not([disabled]) { border-color: currentColor; }
+.mc__pm[disabled] { opacity: 0.35; cursor: not-allowed; }
+
+.mc__controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+.mc__btn {
+  flex: 1;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.mc__btn:hover:not([disabled]) { border-color: currentColor; }
+.mc__btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+.mc__btn--go {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+.mc__btn--go[disabled] { background: var(--line); border-color: transparent; color: inherit; }
+
+.mc__warn {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--warn) 14%, transparent);
+  color: var(--warn);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mc__cost { transition: color 0.2s ease; }
+}
