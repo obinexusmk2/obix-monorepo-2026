@@ -7,7 +7,8 @@
   "author": "OBINexus Computing — Nnamdi Michael Okpala <obinexusmk2@proton.me>",
   "type": "module",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "suite/*"
   ],
   "engines": {
     "node": ">=20.11.0"
@@ -29,7 +30,10 @@
     "check:graph": "node scripts/check-graph-rules.mjs",
     "pack:dry-run": "node scripts/pack-report.mjs",
     "ci": "node scripts/ci.mjs",
-    "publish:all": "node scripts/publish-all.mjs"
+    "publish:all": "node scripts/publish-all.mjs",
+    "build:suite": "node scripts/build-suite.mjs",
+    "test:suite": "node scripts/test-suite.mjs",
+    "check:suite": "npm run build:suite && npm run test:suite"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

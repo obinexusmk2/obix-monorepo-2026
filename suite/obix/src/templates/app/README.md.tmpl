@@ -1,0 +1,32 @@
+# __APP_NAME__
+
+A standard HTML + CSS + TypeScript Web Component app, scaffolded by `obix create`.
+No `.obix` files, no framework — every component is a real custom element.
+
+```bash
+npm install
+npm run dev      # http://localhost:5173, live reload
+npm run build    # bundle to dist/
+npm run check    # tsc --noEmit + accessibility audit
+```
+
+## Layout
+
+```
+index.html                 app shell (semantic landmarks + <app-counter>)
+styles.css                 global styles
+src/main.ts                imports each component module
+src/components/Counter.ts  a ComponentDef + defineElement()
+src/components/Counter.html the template (runtime {marker} bindings)
+src/components/Counter.css  scoped styles (shadow DOM)
+```
+
+## Adding a component
+
+1. `src/components/Thing.ts` — export a `ComponentDef`, call `defineElement(Thing)`.
+2. `src/components/Thing.html` + `Thing.css` — referenced via `new URL("./Thing.html", import.meta.url)`.
+3. `import "./components/Thing.ts";` in `src/main.ts`.
+4. Use `<app-thing>` in `index.html`.
+
+See [`obix-core`](https://www.npmjs.com/package/obix-core) for the template
+binding grammar and the store API.

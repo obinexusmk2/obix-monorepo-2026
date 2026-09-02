@@ -1,5 +1,5 @@
 {
-  "name": "@obinexusltd/obix-adapter-functional",
+  "name": "@obinexusltd/obix-adapter-func",
   "version": "0.2.1",
   "description": "OBIX Functional projection — pure reduce / replay + a create() closure. All action execution routes through obix-ir.applyAction. Depends on @obinexusltd/obix-spec and @obinexusltd/obix-ir.",
   "license": "MIT",
@@ -32,6 +32,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/obinexusmk2/obix-monorepo-2026.git",
-    "directory": "packages/obix-adapter-functional"
+    "directory": "packages/obix-adapter-func"
   }
 }

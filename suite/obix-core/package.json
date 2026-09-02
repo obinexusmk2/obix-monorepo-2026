@@ -1,0 +1,33 @@
+{
+  "name": "obix-core",
+  "version": "0.3.0",
+  "description": "OBIX suite runtime — data-oriented store, runtime {marker} DOM binder, ObixElement Web Component base, function/class projections, and a dev-time accessibility audit. Zero dependencies.",
+  "keywords": ["obix", "web-components", "custom-elements", "data-oriented", "accessibility", "state"],
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test test/"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obinexusmk2/obix-monorepo-2026.git",
+    "directory": "suite/obix-core"
+  }
+}

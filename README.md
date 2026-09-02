@@ -20,7 +20,7 @@ forms that are **provably equivalent** against an independent reference evaluato
 | 05 | [`@obinexusltd/obix-template`](packages/obix-template) | binding + event descriptor analysis (pure) | ✅ full |
 | 06 | [`@obinexusltd/obix-styles`](packages/obix-styles) | scoped CSS transform (one canonical token) | ✅ full |
 | 07 | [`@obinexusltd/obix-adapter-data`](packages/obix-adapter-data) | identity / data projection | ✅ full |
-| 08 | [`@obinexusltd/obix-adapter-functional`](packages/obix-adapter-functional) | `reduce` / `replay` / `create` closure | ✅ full |
+| 08 | [`@obinexusltd/obix-adapter-func`](packages/obix-adapter-func) | `reduce` / `replay` / `create` closure | ✅ full |
 | 09 | [`@obinexusltd/obix-adapter-oop`](packages/obix-adapter-oop) | generated class projection | ✅ full |
 | 10 | [`@obinexusltd/obix-adapter-reactive`](packages/obix-adapter-reactive) | subscribers + changedKeys + effects lifecycle | ✅ full |
 | 11 | [`@obinexusltd/obix-adapter-native`](packages/obix-adapter-native) | DOM mount (the only DOM adapter) | ✅ Level 0 subset |
@@ -48,7 +48,7 @@ spec ─▶ ir ─▶ {parser, template, styles, effects}
       │              │                              │
       └──────▶ compiler ◀────────────────────┐      │
                      │                       │      │
-   {adapter-data, adapter-functional, adapter-oop} │
+   {adapter-data, adapter-func, adapter-oop} │
                      │           adapter-reactive ─┘
                      ▼                  │
                  adapter-ssr      adapter-native ─▶ runtime

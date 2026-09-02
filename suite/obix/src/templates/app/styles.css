@@ -1,0 +1,27 @@
+:root {
+  color-scheme: light dark;
+  --gap: 1rem;
+  font: 1rem/1.5 system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: var(--gap);
+  display: grid;
+  gap: var(--gap);
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+}
+.skip-link:focus {
+  left: var(--gap);
+  top: var(--gap);
+}
+
+h1 { font-size: 1.5rem; margin: 0; }

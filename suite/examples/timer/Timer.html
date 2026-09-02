@@ -1,0 +1,10 @@
+<div class="Timer" role="timer" data-bind-aria-label="label">
+  <output class="Timer__display">{formattedTime}</output>
+  <p class="Timer__status" role="status" aria-live="polite">{statusLabel}</p>
+  <div class="Timer__controls">
+    <button type="button" class="Timer__button" data-on-click="Start" data-bind-disabled="cannotStart">Start</button>
+    <button type="button" class="Timer__button" data-on-click="Stop" data-bind-disabled="stopped">Stop</button>
+    <button type="button" class="Timer__button" data-on-click="Reset">Reset</button>
+  </div>
+  <p class="Timer__hint" data-if="finished">Time's up. Reset to start again.</p>
+</div>

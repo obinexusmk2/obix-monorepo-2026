@@ -1,0 +1,44 @@
+{
+  "name": "obix",
+  "version": "0.3.0",
+  "description": "The OBIX application suite — bundle standard HTML + CSS + TypeScript Web Component apps. Re-exports obix-core, namespaces obix-test, and ships the `obix` CLI (create / dev / build / check).",
+  "keywords": ["obix", "web-components", "custom-elements", "bundler", "cli", "accessibility", "data-oriented"],
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "sideEffects": false,
+  "bin": {
+    "obix": "./dist/bin/obix.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "esbuild": "^0.24.2",
+    "obix-core": "0.3.0",
+    "obix-test": "0.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obinexusmk2/obix-monorepo-2026.git",
+    "directory": "suite/obix"
+  }
+}

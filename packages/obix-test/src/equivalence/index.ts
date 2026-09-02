@@ -8,7 +8,7 @@
  */
 import { referenceFold } from "@obinexusltd/obix-validator";
 import { toData, dataRender, dataValidate } from "@obinexusltd/obix-adapter-data";
-import { toFunctional } from "@obinexusltd/obix-adapter-functional";
+import { toFunctional } from "@obinexusltd/obix-adapter-func";
 import { toOOP } from "@obinexusltd/obix-adapter-oop";
 import { toReactive } from "@obinexusltd/obix-adapter-reactive";
 import type {

@@ -13,7 +13,7 @@
     { "path": "packages/obix-runtime" },
     { "path": "packages/obix-compiler" },
     { "path": "packages/obix-adapter-data" },
-    { "path": "packages/obix-adapter-functional" },
+    { "path": "packages/obix-adapter-func" },
     { "path": "packages/obix-adapter-oop" },
     { "path": "packages/obix-adapter-reactive" },
     { "path": "packages/obix-adapter-native" },
@@ -21,6 +21,9 @@
     { "path": "packages/obix-test" },
     { "path": "packages/obix-cli" },
     { "path": "packages/obix-language-server" },
-    { "path": "packages/obix-timer" }
+    { "path": "packages/obix-timer" },
+    { "path": "suite/obix-core" },
+    { "path": "suite/obix-test" },
+    { "path": "suite/obix" }
   ]
 }

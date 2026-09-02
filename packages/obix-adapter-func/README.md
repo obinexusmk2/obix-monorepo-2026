@@ -1,9 +1,9 @@
-# @obinexusltd/obix-adapter-functional
+# @obinexusltd/obix-adapter-func
 
 **The Functional projection — `reduce` / `replay` + a `create()` closure.**
 
 ```bash
-npm install @obinexusltd/obix-adapter-functional
+npm install @obinexusltd/obix-adapter-func
 ```
 
 ## API

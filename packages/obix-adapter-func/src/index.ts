@@ -1,5 +1,5 @@
 /**
- * @obinexusltd/obix-adapter-functional
+ * @obinexusltd/obix-adapter-func
  *
  * The Functional projection: a `pure` namespace (`reduce` / `replay`) and a
  * `create()` closure instance. Every action execution routes through

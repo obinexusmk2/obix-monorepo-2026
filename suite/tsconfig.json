@@ -1,0 +1,9 @@
+{
+  "// note": "Editor/typecheck aggregate for the unscoped obix-* suite. Authoritative build: node scripts/build-suite.mjs (tsc -p, in dependency order).",
+  "files": [],
+  "references": [
+    { "path": "obix-core" },
+    { "path": "obix-test" },
+    { "path": "obix" }
+  ]
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OBIX Timer example</title>
+  <style>
+    body { margin: 0; padding: 2rem; font: 1rem/1.5 system-ui, sans-serif; }
+    main { max-width: 24rem; margin-inline: auto; display: grid; gap: 1.5rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>OBIX Timer</h1>
+    <obix-timer label="Session timer" limit-seconds="5" idle-text="Ready"></obix-timer>
+  </main>
+  <script type="module" src="./Timer.ts"></script>
+</body>
+</html>

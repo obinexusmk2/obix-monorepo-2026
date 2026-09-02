@@ -10,6 +10,8 @@ npm-debug.log*
 # ─────────────────────────────────────────────────────────────
 packages/*/dist/
 packages/*/*.tsbuildinfo
+suite/**/dist/
+suite/**/*.tsbuildinfo
 *.tsbuildinfo
 .tsbuild/
 

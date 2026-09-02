@@ -281,7 +281,7 @@ All twenty are `private: false`, `publishConfig.access: "public"`, `type: "modul
 | 05 | `@obinexusltd/obix-template` | binding + event descriptor analysis (pure) | full |
 | 06 | `@obinexusltd/obix-styles` | scoped CSS transform (one canonical token) | full (no SCSS) |
 | 07 | `@obinexusltd/obix-adapter-data` | identity / data projection | full |
-| 08 | `@obinexusltd/obix-adapter-functional` | `reduce` / `replay` / `create` closure | full |
+| 08 | `@obinexusltd/obix-adapter-func` | `reduce` / `replay` / `create` closure | full |
 | 09 | `@obinexusltd/obix-adapter-oop` | generated class projection | full |
 | 10 | `@obinexusltd/obix-adapter-reactive` | subscribers + `changedKeys` + effects lifecycle | full |
 | 11 | `@obinexusltd/obix-adapter-native` | DOM mount (the only DOM adapter) | Level 0 subset |
@@ -342,7 +342,7 @@ obix-validator   → obix-spec, obix-ir
 obix-accessibility → obix-spec, obix-template
 
 obix-adapter-data       → obix-spec, obix-ir
-obix-adapter-functional → obix-spec, obix-ir
+obix-adapter-func → obix-spec, obix-ir
 obix-adapter-oop        → obix-spec, obix-ir
 obix-adapter-reactive   → obix-spec, obix-ir, obix-effects
 obix-adapter-ssr        → obix-spec, obix-ir
@@ -352,14 +352,14 @@ obix-compiler    → obix-spec, obix-ir, obix-parser, obix-template, obix-styles
                    obix-accessibility, obix-validator
 
 obix-test        → obix-spec, obix-ir, obix-validator,
-                   obix-adapter-data, obix-adapter-functional,
+                   obix-adapter-data, obix-adapter-func,
                    obix-adapter-oop, obix-adapter-reactive
 
 obix-cli             → obix-compiler, obix-test, obix-validator
 obix-language-server → obix-spec, obix-parser, obix-template, obix-compiler
 
 obix-timer       → obix-spec, obix-ir,
-                   obix-adapter-data, obix-adapter-functional,
+                   obix-adapter-data, obix-adapter-func,
                    obix-adapter-oop, obix-adapter-reactive
 ```
 
@@ -368,7 +368,7 @@ Topological order (Kahn, deterministic tie-break by name), as printed by
 
 ```
 obix-runtime → obix-spec → obix-effects → obix-ir → obix-adapter-data →
-obix-adapter-functional → obix-adapter-oop → obix-adapter-reactive →
+obix-adapter-func → obix-adapter-oop → obix-adapter-reactive →
 obix-adapter-native → obix-adapter-ssr → obix-parser → obix-styles →
 obix-template → obix-accessibility → obix-timer → obix-validator →
 obix-compiler → obix-language-server → obix-test → obix-cli
@@ -639,7 +639,7 @@ Operational at Level 0 (real code, not stubs):
 
 ```
 obix-spec  obix-ir  obix-parser  obix-template  obix-styles  obix-compiler
-obix-adapter-data  obix-adapter-functional  obix-adapter-oop  obix-adapter-reactive
+obix-adapter-data  obix-adapter-func  obix-adapter-oop  obix-adapter-reactive
 obix-adapter-native  obix-runtime  obix-effects(every)  obix-validator  obix-test
 obix-accessibility  obix-cli  obix-timer
 ```
@@ -709,11 +709,11 @@ Root:
 }
 ```
 
-A leaf package (`@obinexusltd/obix-adapter-functional`):
+A leaf package (`@obinexusltd/obix-adapter-func`):
 
 ```json
 {
-  "name": "@obinexusltd/obix-adapter-functional",
+  "name": "@obinexusltd/obix-adapter-func",
   "version": "0.2.1",
   "type": "module",
   "private": false,

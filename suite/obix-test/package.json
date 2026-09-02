@@ -1,0 +1,36 @@
+{
+  "name": "obix-test",
+  "version": "0.3.0",
+  "description": "Headless verification for the OBIX suite — virtual-clock component harness and function/class projection equivalence checking.",
+  "keywords": ["obix", "testing", "web-components", "equivalence", "virtual-time"],
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "obix-core": "0.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obinexusmk2/obix-monorepo-2026.git",
+    "directory": "suite/obix-test"
+  }
+}
