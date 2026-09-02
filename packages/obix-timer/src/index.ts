@@ -1,5 +1,5 @@
 /**
- * @obinexusltd/obix-timer
+ * obix-timer
  *
  * The frozen OBIX golden fixture. It is a **reference fixture / teaching example
  * / acceptance artifact** — not a product. Nothing in the compiler, runtime or
@@ -10,8 +10,8 @@
  *   FIXTURE_VERSION  — the spec revision the fixture is frozen against
  *   FIXTURE_CHECKSUM — sha256 of the LF-normalised Timer.obix source
  */
-import { SPEC_VERSION } from "@obinexusltd/obix-spec";
-import type { ActionTrace } from "@obinexusltd/obix-spec";
+import { SPEC_VERSION } from "obix-spec";
+import type { ActionTrace } from "obix-spec";
 import { TIMER_OBIX_SOURCE, sha256 } from "./timer-source.js";
 
 export { TimerDOP } from "./timer-dop.js";

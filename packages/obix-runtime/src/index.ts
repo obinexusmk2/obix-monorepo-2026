@@ -1,5 +1,5 @@
 /**
- * @obinexusltd/obix-runtime
+ * obix-runtime
  *
  * The browser binding runtime and NOTHING else. No component business model,
  * no VDOM, no router, no DI, no store. Every DOM access lives inside a function

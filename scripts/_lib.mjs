@@ -25,12 +25,10 @@ export function pkgDir(short) {
   return join(PACKAGES_DIR, short);
 }
 
-/** internal @obinexusltd/obix-* deps declared in a package.json (deps only, not dev) */
+/** internal obix-* deps declared in a package.json (deps only, not dev) */
 export function internalDeps(pkgJson) {
   const deps = pkgJson.dependencies ?? {};
-  return Object.keys(deps)
-    .filter((n) => n.startsWith("@obinexusltd/obix-"))
-    .map((n) => n.replace("@obinexusltd/", ""));
+  return Object.keys(deps).filter((n) => n.startsWith("obix-"));
 }
 
 export function run(cmd, args, opts = {}) {

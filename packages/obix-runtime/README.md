@@ -1,9 +1,9 @@
-# @obinexusltd/obix-runtime
+# obix-runtime
 
 **The OBIX browser binding runtime — and nothing else.**
 
 ```bash
-npm install @obinexusltd/obix-runtime
+npm install obix-runtime
 ```
 
 ## Purpose

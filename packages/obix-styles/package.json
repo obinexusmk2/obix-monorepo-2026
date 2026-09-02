@@ -1,7 +1,7 @@
 {
-  "name": "@obinexusltd/obix-styles",
+  "name": "obix-styles",
   "version": "0.2.1",
-  "description": "Scoped CSS transformation for OBIX. One canonical scope token (from obix-spec). Depends only on @obinexusltd/obix-spec.",
+  "description": "Scoped CSS transformation for OBIX. One canonical scope token (from obix-spec). Depends only on obix-spec.",
   "license": "MIT",
   "type": "module",
   "private": false,
@@ -20,7 +20,7 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@obinexusltd/obix-spec": "0.2.1"
+    "obix-spec": "0.2.1"
   },
   "publishConfig": {
     "access": "public"

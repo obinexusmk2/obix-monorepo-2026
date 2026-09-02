@@ -4,11 +4,14 @@ Standard Web Components. **No `.obix` file, no compiler.** A component is a type
 `.ts` module + a `.html` template + a `.css` stylesheet — files a browser, a
 bundler, and `tsc` understand directly.
 
-Built **parallel** to the frozen 20-package `@obinexusltd/obix-*` graph in
-[`../packages`](../packages), which is untouched (see
-[`../docs/OBIX-1.0-LEVEL-0-...`](../docs)). This suite has its own version line
+Built **parallel** to the frozen 20-package graph in
+[`../packages`](../packages) (`obix-spec`, `obix-ir`, …, `obix-compiler`,
+`obix-equivalence`, …). Those packages keep their behaviour; this pass only
+de-scoped their names from `@obinexusltd/obix-*` to bare `obix-*` so they publish
+unscoped. This suite has its own version line
 ([`SUITE_VERSION`](SUITE_VERSION) = `0.3.0`) and its own build
-(`node scripts/build-suite.mjs`).
+(`node scripts/build-suite.mjs`). The suite's own `obix-test` is a different
+package from the frozen `obix-equivalence`.
 
 | Package | Role |
 |---|---|

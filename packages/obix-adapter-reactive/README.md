@@ -1,9 +1,9 @@
-# @obinexusltd/obix-adapter-reactive
+# obix-adapter-reactive
 
 **The Reactive projection — subscribers, `changedKeys`, effects lifecycle.**
 
 ```bash
-npm install @obinexusltd/obix-adapter-reactive
+npm install obix-adapter-reactive
 ```
 
 ## API
@@ -25,7 +25,7 @@ input — matching identity semantics like `Start` at the Timer's terminal state
 ## Dependency role
 
 `obix-spec` + `obix-ir` + `obix-effects`. **Not** a dependency of `obix-effects`
-(that would be a cycle). Consumed by `obix-test`, `obix-adapter-native`,
+(that would be a cycle). Consumed by `obix-equivalence`, `obix-adapter-native`,
 `obix-timer`.
 
 ## Level 0 status

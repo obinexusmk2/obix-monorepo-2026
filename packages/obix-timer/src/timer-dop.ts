@@ -9,13 +9,13 @@
  * This mirrors fixture/Timer.obix exactly. The compiler is expected to produce
  * an artifact that is behaviourally identical to this one.
  */
-import { createDOP } from "@obinexusltd/obix-ir";
+import { createDOP } from "obix-ir";
 import type {
   ActionFn,
   DerivedFn,
   TemplateDescriptor,
   ValidationResult,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 
 export interface TimerState {
   readonly seconds: number;

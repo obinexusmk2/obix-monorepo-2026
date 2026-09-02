@@ -4,7 +4,7 @@ import type {
   Props,
   ActionTrace,
   ValidationResult,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 
 export interface ReferenceFoldResult<S extends object = State> {
   /** state after the whole trace */
@@ -36,7 +36,7 @@ export interface ReferenceFoldResult<S extends object = State> {
  *         current = artifact.actions[name](current, payload, props)
  *
  * The validator defines the EXPECTED result. Adapters are tested against it in
- * obix-test.
+ * obix-equivalence.
  */
 export function referenceFold<S extends object = State, P extends object = Props>(
   artifact: DOPArtifact<S, P>,

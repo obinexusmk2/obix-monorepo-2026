@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { analyzeBindings, analyzeEvents, analyzeTemplate, resolveBinding, bindingScope, extractDependencies } from "../dist/index.js";
-import { parseTemplate } from "@obinexusltd/obix-parser";
+import { parseTemplate } from "obix-parser";
 
 const { ast } = parseTemplate(
   '<div aria-label="{label}"><output>{formattedTime}</output>' +

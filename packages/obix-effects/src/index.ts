@@ -1,5 +1,5 @@
 /**
- * @obinexusltd/obix-effects
+ * obix-effects
  *
  * Scheduler primitives for OBIX effects. State-machine agnostic: the scheduler
  * re-evaluates a declared `while(state, props)` predicate after transitions and
@@ -8,12 +8,12 @@
  *
  * Level 0: `every` is operational. `after` / `on` throw UnsupportedFeatureError.
  */
-import { UnsupportedFeatureError, type EffectDescriptor } from "@obinexusltd/obix-spec";
+import { UnsupportedFeatureError, type EffectDescriptor } from "obix-spec";
 import { defaultClock, type Clock } from "./clock.js";
 
 export { defaultClock, createVirtualClock } from "./clock.js";
 export type { Clock, VirtualClock } from "./clock.js";
-export { UnsupportedFeatureError } from "@obinexusltd/obix-spec";
+export { UnsupportedFeatureError } from "obix-spec";
 
 /** An effect descriptor plus the runtime predicate/handler the scheduler needs. */
 export interface RuntimeEffect extends EffectDescriptor {

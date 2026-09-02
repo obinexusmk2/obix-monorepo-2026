@@ -1,5 +1,5 @@
 /**
- * @obinexusltd/obix-accessibility
+ * obix-accessibility
  *
  * Compile-time accessibility analysis. OBIX treats accessibility as part of
  * correctness, so this is a MANDATORY dependency of obix-compiler — installing
@@ -8,7 +8,7 @@
  * Level 0 is analysis only. There is deliberately NO runtime `announce()` here;
  * live-region updates happen through ordinary DOM bindings in obix-runtime.
  */
-import { DIAGNOSTIC_CODES } from "@obinexusltd/obix-spec";
+import { DIAGNOSTIC_CODES } from "obix-spec";
 import type {
   A11yModel,
   A11yLiveRegion,
@@ -16,7 +16,7 @@ import type {
   TemplateDescriptor,
   TemplateElement,
   TemplateNode,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 
 const LIVE = new Set(["polite", "assertive", "off"]);
 const KNOWN_ROLES = new Set([

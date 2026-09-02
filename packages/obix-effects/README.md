@@ -1,9 +1,9 @@
-# @obinexusltd/obix-effects
+# obix-effects
 
 **State-machine-agnostic scheduler primitives for OBIX effects.**
 
 ```bash
-npm install @obinexusltd/obix-effects
+npm install obix-effects
 ```
 
 ## Purpose
@@ -26,7 +26,7 @@ quiesces by itself once an action sets `running: false`.
 
 ## Dependency role
 
-Depends only on `@obinexusltd/obix-spec` (types). It is **not** a dependency of
+Depends only on `obix-spec` (types). It is **not** a dependency of
 the reactive adapter's *code path* for pure transitions — only its effects
 lifecycle uses it. `obix-effects` never imports any adapter.
 

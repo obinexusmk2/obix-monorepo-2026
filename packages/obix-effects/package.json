@@ -1,7 +1,7 @@
 {
-  "name": "@obinexusltd/obix-effects",
+  "name": "obix-effects",
   "version": "0.2.1",
-  "description": "State-machine-agnostic scheduler primitives for OBIX effects (every / after / on). Level 0 implements `every`. Depends only on @obinexusltd/obix-spec.",
+  "description": "State-machine-agnostic scheduler primitives for OBIX effects (every / after / on). Level 0 implements `every`. Depends only on obix-spec.",
   "license": "MIT",
   "type": "module",
   "private": false,
@@ -20,7 +20,7 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@obinexusltd/obix-spec": "0.2.1"
+    "obix-spec": "0.2.1"
   },
   "publishConfig": {
     "access": "public"

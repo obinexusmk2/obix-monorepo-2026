@@ -1,15 +1,15 @@
-# @obinexusltd/obix-adapter-native
+# obix-adapter-native
 
 **The Native projection — the only OBIX adapter that touches the DOM.**
 
 ```bash
-npm install @obinexusltd/obix-adapter-native
+npm install obix-adapter-native
 ```
 
 ## API
 
 ```ts
-import { mount } from "@obinexusltd/obix-adapter-native";
+import { mount } from "obix-adapter-native";
 const handle = mount(artifact, document.querySelector("#app"), { props: { limitSeconds: 5 } });
 handle.instance.dispatch("Start");
 handle.unmount();

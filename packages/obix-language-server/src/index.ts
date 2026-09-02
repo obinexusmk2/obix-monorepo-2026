@@ -1,14 +1,14 @@
 /**
- * @obinexusltd/obix-language-server
+ * obix-language-server
  *
  * Editor intelligence for `.obix`. This is a thin layer: the compiler and parser
  * remain the single source of diagnostics. No editor transport (LSP JSON-RPC) is
  * bundled at Level 0 — an editor shell calls these pure functions.
  */
-import { checkSource } from "@obinexusltd/obix-compiler";
-import { scanSections, parseTemplate, parseScript } from "@obinexusltd/obix-parser";
-import { analyzeTemplate } from "@obinexusltd/obix-template";
-import type { Diagnostic } from "@obinexusltd/obix-spec";
+import { checkSource } from "obix-compiler";
+import { scanSections, parseTemplate, parseScript } from "obix-parser";
+import { analyzeTemplate } from "obix-template";
+import type { Diagnostic } from "obix-spec";
 
 export interface Position {
   line: number;

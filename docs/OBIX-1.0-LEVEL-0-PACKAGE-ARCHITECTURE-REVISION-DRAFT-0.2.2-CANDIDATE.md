@@ -16,7 +16,7 @@
 ## 1. Executive decision
 
 The frozen OBIX language is implemented as **exactly twenty public npm packages** under the
-`@obinexusltd/obix-*` family, developed in one npm-workspaces monorepo, released in
+`obix-*` family, developed in one npm-workspaces monorepo, released in
 **lockstep** at a single version (`0.2.1`, from the `OBIX_VERSION` file).
 
 The 0.2.1 problem analysis recommended *"do not freeze the package graph"* on the strength of
@@ -34,7 +34,7 @@ Two points of method:
   inside it are strict: one canonical type package, one shared execution primitive, one
   independent semantic oracle strictly below the adapters, one scope-token function.
 * **We did not accept every mitigation the draft proposed.** Splitting `obix-validator` into
-  two packages, splitting `obix-test` into two, adding a `quiesces` language feature, shipping
+  two packages, splitting `obix-equivalence` into two, adding a `quiesces` language feature, shipping
   unscoped mirror packages, and relying on `package.json` `"browser"` field substitution were
   all **rejected** — each adds surface or hides a dependency rather than removing a coupling.
 
@@ -44,14 +44,14 @@ Two points of method:
 
 The primary review question asked which boundaries are *necessary*. Answered on engineering
 grounds alone, a smaller distribution surface is defensible: `obix`, `obix-compiler`,
-`obix-runtime`, `obix-test` (+ optionally `obix-spec`) as public packages, with parser,
+`obix-runtime`, `obix-equivalence` (+ optionally `obix-spec`) as public packages, with parser,
 semantic analyser, CSS scoper, accessibility analyser, adapters and the reference evaluator as
 **private workspace modules**. That design and the twenty-package design provide the *same*
 separation of concerns.
 
 The project has fixed the distribution surface at twenty public packages as a governance and
-ecosystem decision (independent installability of `@obinexusltd/obix-parser`,
-`@obinexusltd/obix-adapter-*`, etc.). This document therefore takes twenty as a constraint and
+ecosystem decision (independent installability of `obix-parser`,
+`obix-adapter-*`, etc.). This document therefore takes twenty as a constraint and
 concentrates on making every boundary in that graph load-bearing. Where a package is public
 only because the count requires it (`obix-adapter-ssr`, `obix-language-server` are minimal at
 Level 0), that is stated plainly in §18.
@@ -69,7 +69,7 @@ The diagnosis is correct: if the packages that prove correctness are the package
 proof, a symmetric bug passes silently.
 
 **As-built solution — an independent oracle, not a package split.**
-`@obinexusltd/obix-validator` owns `referenceFold(artifact, initialState, props, trace)`.
+`obix-validator` owns `referenceFold(artifact, initialState, props, trace)`.
 It depends on `obix-spec` and `obix-ir` **only** — it imports no adapter, and it does not call
 `obix-ir.applyAction` or `obix-ir.replayTrace`. It re-implements the fold directly:
 
@@ -79,7 +79,7 @@ for each [name, payload] in trace:
     current = artifact.actions[name](current, payload, props)   // canonical, direct
 ```
 
-`@obinexusltd/obix-test` imports the four pure adapters and compares **each** projection to the
+`obix-equivalence` imports the four pure adapters and compares **each** projection to the
 oracle, step by step, for state / render / validation. Adapters are never compared only to
 each other. The oracle and the adapters share no code, so a bug in the shared adapter
 primitive cannot also be in the thing that judges it.
@@ -98,7 +98,7 @@ The premise is real for `--runtime=inline` (per-component wrapper overhead) but 
 `obix-effects` remains its own public package.
 
 **As-built solution — budget the bundle, not the wrapper.**
-`@obinexusltd/obix-runtime` has **zero dependencies**, `"sideEffects": false`, and every DOM
+`obix-runtime` has **zero dependencies**, `"sideEffects": false`, and every DOM
 access lives inside a function body (importing the module runs no DOM code). The budget is
 measured by `scripts/check-runtime-budget.mjs`: esbuild-bundle → minify → gzip.
 
@@ -108,20 +108,22 @@ Timer inline subset does not include it.
 
 **Gate:** GATE 8.
 
-### Problem 3 — `@obinexusltd` scope / distribution lock-in — **REJECT (as a blocker)**
+### Problem 3 — `@obinexusltd` scope / distribution lock-in — **REJECT (as a blocker)** — *later reversed*
 
-The scope is an intentional governance decision and a hard requirement of this revision. No
-unscoped mirror packages are created. What remains true and sufficient: every package is MIT,
-`publishConfig.access: "public"`, carries `repository.directory`, and the scope is defined in
-exactly one place in tooling (`scripts/graph.mjs` `SCOPE`), so a downstream re-scope is a
-one-constant change plus a workspace re-link, not an edit to twenty import graphs. Not a
-Level 0 architectural risk.
+The scope was, at the time of this draft, an intentional governance decision. It was defined in
+exactly one place in tooling (`scripts/graph.mjs` `SCOPE`), so a re-scope was a one-constant
+change plus a workspace re-link, not an edit to twenty import graphs — and that is exactly what
+was later done. **Post-0.2.2 the packages were de-scoped to bare `obix-*`** (`SCOPE = ""`),
+`@obinexusltd/obix-test` was renamed `obix-equivalence` to free the bare name for the
+0.3.0 suite, and every internal import was rewritten by a mechanical pass. Every package is
+still MIT, `publishConfig.access: "public"`, and carries `repository.directory`. Not a Level 0
+architectural risk either way.
 
 ### Problem 4 — Version synchronisation across twenty packages — **ACCEPT**
 
 **As-built solution — lockstep, enforced.**
 One `OBIX_VERSION` file at the repo root. All twenty `package.json` `version` fields equal it.
-Every internal `@obinexusltd/obix-*` dependency pins the **exact** version — no `^`, `~`, `>=`,
+Every internal `obix-*` dependency pins the **exact** version — no `^`, `~`, `>=`,
 `*`, or `workspace:*`. `scripts/check-obix-versions.mjs` fails CI with **`OBIX-C011`** on any
 drift, in either `version` or any dependency spec. A lighter mechanism than a published
 `obix-versions.json` matrix; the file + the check are the matrix.
@@ -131,12 +133,12 @@ drift, in either `version` or any dependency spec. A lighter mechanism than a pu
 ### Problem 5 — Accessibility becoming optional because it is separate — **ACCEPT**
 
 **As-built solution — Design B behaviour via Design A packaging.**
-`@obinexusltd/obix-accessibility` stays a separate public package (keeps the twenty-graph and
-lets other tooling consume a11y analysis), **but** `@obinexusltd/obix-compiler` declares it as
+`obix-accessibility` stays a separate public package (keeps the twenty-graph and
+lets other tooling consume a11y analysis), **but** `obix-compiler` declares it as
 a **normal `dependencies` entry** — not `peerDependencies`, not `optionalDependencies`.
 `analyzeA11y` runs *before* emit; `hasBlockingA11yError(diagnostics)` makes `compile()` return
 `{ ok: false }` with **no `code`**. There is no `--no-a11y` switch in the CLI and no option on
-`compile()` that skips it. Public experience: `npm install @obinexusltd/obix-compiler` ⇒
+`compile()` that skips it. Public experience: `npm install obix-compiler` ⇒
 accessibility checks are present.
 
 **Gate:** GATE 7 (`scripts/check-a11y-required.mjs`) — asserts the dependency kind, that the
@@ -173,7 +175,7 @@ copies of adapter source per compiled component — explicitly disallowed. One s
 
 ### Problem 9 — Effect quiescence coupled to component semantics — **MODIFY (the diagnosis)**
 
-The scheduler does **not** need Model A / Model B knowledge. `@obinexusltd/obix-effects`
+The scheduler does **not** need Model A / Model B knowledge. `obix-effects`
 re-evaluates the declared `while(state, props)` predicate after each tick and clears its own
 interval when the predicate is false. Component actions decide when that happens.
 
@@ -194,16 +196,16 @@ there is a single import site. A test asserts
 
 ### Problem 11 — Test DSL mixing runtime and contract concerns — **MODIFY**
 
-Diagnosis accepted (the graph is heavy); the fix is **not a 21st package**. `@obinexusltd/obix-test`
+Diagnosis accepted (the graph is heavy); the fix is **not a 21st package**. `obix-equivalence`
 is one package with internal modules `src/equivalence/`, `src/behavioural/`, `src/contracts/`,
 `src/virtual-time/`, surfaced as **subpath exports**
-(`@obinexusltd/obix-test/behavioural`, …) so a browser bundler can later pull only the light
+(`obix-equivalence/behavioural`, …) so a browser bundler can later pull only the light
 part. Virtual time is `obix-effects.createVirtualClock` (already in the graph via the reactive
 adapter), not a re-implementation.
 
 ### Problem 12 — TypeScript declaration drift — **ACCEPT**
 
-**As-built solution.** `@obinexusltd/obix-spec` is the one canonical type source; every other
+**As-built solution.** `obix-spec` is the one canonical type source; every other
 package imports `DOPArtifact`, `ActionSignature`, `DerivedSignature`, `TemplateDescriptor`,
 `BindingDescriptor`, `EffectDescriptor`, `A11yModel`, `TransitionMeta`, `ValidationResult`,
 `DopIR`, … from it and **redefines none of them**. `.d.ts` is emitted from that TypeScript
@@ -212,7 +214,7 @@ size, and the dependency graph already forces every package through `obix-spec`.
 
 ### Problem 13 — Golden fixture is both test and distribution — **ACCEPT (form MODIFIED)**
 
-`@obinexusltd/obix-timer` remains public. Fixture identity is **separate metadata inside the
+`obix-timer` remains public. Fixture identity is **separate metadata inside the
 package**: `FIXTURE_VERSION = "draft-0.2.1-addendum-a"`, `FIXTURE_CHECKSUM` (sha256 of the
 LF-normalised `Timer.obix`), an immutable snapshot directory
 `fixtures/draft-0.2.1-addendum-a/` with its own `CHECKSUM`, and a git tag at the freeze point.
@@ -224,7 +226,7 @@ it.
 ### Problem 14 — SSR accidentally pulling DOM code — **ACCEPT**
 
 **As-built solution — a graph property, not a `package.json` trick.**
-`@obinexusltd/obix-adapter-ssr` depends on `obix-spec` and `obix-ir` **only**; it may not
+`obix-adapter-ssr` depends on `obix-spec` and `obix-ir` **only**; it may not
 depend on `obix-runtime`, `obix-adapter-native` or `obix-adapter-reactive`. Its tsconfig has
 **no `DOM` lib**, so DOM identifiers do not even type-check there. `scripts/check-ssr-purity.mjs`
 (GATE 9) esbuild-bundles it for a neutral platform and fails on any `window` / `document` /
@@ -262,7 +264,7 @@ import. No `"browser": "./empty.js"` substitution anywhere.
 **Draft mitigations explicitly not adopted:** split `obix-validator` (P1); merge
 `obix-runtime`+`obix-effects` (P2); unscoped mirror packages (P3); `obix-versions.json` as a
 separate artifact (P4 — replaced by the `OBIX_VERSION` file + check); generate adapter call
-sites from the compiler (P8); `quiesces` hint (P9); split `obix-test` (P11); IDL/code
+sites from the compiler (P8); `quiesces` hint (P9); split `obix-equivalence` (P11); IDL/code
 generator for `.d.ts` (P12); `"browser"` field substitution for SSR purity (P14).
 
 ---
@@ -274,26 +276,26 @@ All twenty are `private: false`, `publishConfig.access: "public"`, `type: "modul
 
 | # | Package | One-line purpose | Level 0 depth |
 |---|---------|------------------|---------------|
-| 01 | `@obinexusltd/obix-spec` | canonical types, structural contracts, `createScopeToken`, `validateObixAST` | full |
-| 02 | `@obinexusltd/obix-ir` | `createDOP`, `applyAction`, freeze/diff helpers | full |
-| 03 | `@obinexusltd/obix-parser` | section scanner + strict template/script parse + `validateObixAST` | full (Level 0 grammar) |
-| 04 | `@obinexusltd/obix-compiler` | source → AST → DOP IR → ES6 emit; **hard** a11y dep | Level 0 subset |
-| 05 | `@obinexusltd/obix-template` | binding + event descriptor analysis (pure) | full |
-| 06 | `@obinexusltd/obix-styles` | scoped CSS transform (one canonical token) | full (no SCSS) |
-| 07 | `@obinexusltd/obix-adapter-data` | identity / data projection | full |
-| 08 | `@obinexusltd/obix-adapter-func` | `reduce` / `replay` / `create` closure | full |
-| 09 | `@obinexusltd/obix-adapter-oop` | generated class projection | full |
-| 10 | `@obinexusltd/obix-adapter-reactive` | subscribers + `changedKeys` + effects lifecycle | full |
-| 11 | `@obinexusltd/obix-adapter-native` | DOM mount (the only DOM adapter) | Level 0 subset |
-| 12 | `@obinexusltd/obix-adapter-ssr` | DOM-free `renderToString` | minimal (renderToString only) |
-| 13 | `@obinexusltd/obix-runtime` | browser binding runtime, ≤ 4 KB gzip | full |
-| 14 | `@obinexusltd/obix-effects` | scheduler primitives (`every` operational) | `every` only |
-| 15 | `@obinexusltd/obix-validator` | validation + **independent `referenceFold` oracle** | full |
-| 16 | `@obinexusltd/obix-test` | adapter-equivalence orchestration + DSL parsers | full |
-| 17 | `@obinexusltd/obix-accessibility` | compile-time a11y analysis (mandatory compiler dep) | Level 0 subset |
-| 18 | `@obinexusltd/obix-cli` | `obixc build\|check\|test\|verify\|equivalence` | Level 0 subset |
-| 19 | `@obinexusltd/obix-language-server` | diagnostics / completion / hover / definition | diagnostics complete, rest minimal |
-| 20 | `@obinexusltd/obix-timer` | frozen golden fixture | full, frozen |
+| 01 | `obix-spec` | canonical types, structural contracts, `createScopeToken`, `validateObixAST` | full |
+| 02 | `obix-ir` | `createDOP`, `applyAction`, freeze/diff helpers | full |
+| 03 | `obix-parser` | section scanner + strict template/script parse + `validateObixAST` | full (Level 0 grammar) |
+| 04 | `obix-compiler` | source → AST → DOP IR → ES6 emit; **hard** a11y dep | Level 0 subset |
+| 05 | `obix-template` | binding + event descriptor analysis (pure) | full |
+| 06 | `obix-styles` | scoped CSS transform (one canonical token) | full (no SCSS) |
+| 07 | `obix-adapter-data` | identity / data projection | full |
+| 08 | `obix-adapter-func` | `reduce` / `replay` / `create` closure | full |
+| 09 | `obix-adapter-oop` | generated class projection | full |
+| 10 | `obix-adapter-reactive` | subscribers + `changedKeys` + effects lifecycle | full |
+| 11 | `obix-adapter-native` | DOM mount (the only DOM adapter) | Level 0 subset |
+| 12 | `obix-adapter-ssr` | DOM-free `renderToString` | minimal (renderToString only) |
+| 13 | `obix-runtime` | browser binding runtime, ≤ 4 KB gzip | full |
+| 14 | `obix-effects` | scheduler primitives (`every` operational) | `every` only |
+| 15 | `obix-validator` | validation + **independent `referenceFold` oracle** | full |
+| 16 | `obix-equivalence` | adapter-equivalence orchestration + DSL parsers | full |
+| 17 | `obix-accessibility` | compile-time a11y analysis (mandatory compiler dep) | Level 0 subset |
+| 18 | `obix-cli` | `obixc build\|check\|test\|verify\|equivalence` | Level 0 subset |
+| 19 | `obix-language-server` | diagnostics / completion / hover / definition | diagnostics complete, rest minimal |
+| 20 | `obix-timer` | frozen golden fixture | full, frozen |
 
 ---
 
@@ -306,7 +308,7 @@ public packages**, e.g.:
 ```
 obix-parser/src/{scan-sections,parse-template,parse-script,parse-styles}.ts
 obix-compiler/src/{compile,ir,emit}.ts
-obix-test/src/{equivalence,behavioural,contracts,virtual-time}/
+obix-equivalence/src/{equivalence,behavioural,contracts,virtual-time}/
 obix-adapter-reactive/src/… (effects lifecycle isolated from the pure dispatch path)
 ```
 
@@ -351,11 +353,11 @@ obix-adapter-native     → obix-spec, obix-ir, obix-adapter-reactive, obix-runt
 obix-compiler    → obix-spec, obix-ir, obix-parser, obix-template, obix-styles,
                    obix-accessibility, obix-validator
 
-obix-test        → obix-spec, obix-ir, obix-validator,
+obix-equivalence        → obix-spec, obix-ir, obix-validator,
                    obix-adapter-data, obix-adapter-func,
                    obix-adapter-oop, obix-adapter-reactive
 
-obix-cli             → obix-compiler, obix-test, obix-validator
+obix-cli             → obix-compiler, obix-equivalence, obix-validator
 obix-language-server → obix-spec, obix-parser, obix-template, obix-compiler
 
 obix-timer       → obix-spec, obix-ir,
@@ -371,7 +373,7 @@ obix-runtime → obix-spec → obix-effects → obix-ir → obix-adapter-data �
 obix-adapter-func → obix-adapter-oop → obix-adapter-reactive →
 obix-adapter-native → obix-adapter-ssr → obix-parser → obix-styles →
 obix-template → obix-accessibility → obix-timer → obix-validator →
-obix-compiler → obix-language-server → obix-test → obix-cli
+obix-compiler → obix-language-server → obix-equivalence → obix-cli
 ```
 
 **Cycles: 0.** (`scripts/check-cycles.mjs`, GATE 4.)
@@ -387,16 +389,16 @@ rules, all currently pass):
 2. `obix-runtime` has no semantic/compiler dependency (zero deps).
 3. `obix-ir` does not depend on `obix-compiler`.
 4. `obix-parser` depends on **no adapter**.
-5. `obix-validator` depends on **no adapter**, and not on `obix-test`.
-6. **No adapter** depends on `obix-validator`, `obix-test`, or `obix-compiler`.
+5. `obix-validator` depends on **no adapter**, and not on `obix-equivalence`.
+6. **No adapter** depends on `obix-validator`, `obix-equivalence`, or `obix-compiler`.
 7. `obix-runtime` does not depend on `obix-compiler`.
 8. `obix-effects` does not depend on `obix-adapter-reactive`.
 9. `obix-adapter-ssr` does not depend on `obix-adapter-native`, `obix-runtime`, or
    `obix-adapter-reactive`.
 10. `obix-accessibility` does not depend on `obix-compiler`; `obix-compiler` **does** depend on
     `obix-accessibility` and on `obix-validator`.
-11. `obix-test` depends on the four **pure** adapters and **not** on `obix-adapter-native`.
-12. `obix-cli` depends on `obix-compiler` and `obix-test`.
+11. `obix-equivalence` depends on the four **pure** adapters and **not** on `obix-adapter-native`.
+12. `obix-cli` depends on `obix-compiler` and `obix-equivalence`.
 13. `obix-language-server` depends on `obix-parser` and `obix-compiler`.
 14. `obix-timer` is a **leaf**: nothing depends on it, and it is never a dependency of the
     compiler, runtime, or any adapter.
@@ -410,7 +412,7 @@ with `test/equivalence` allowed to depend on adapters but never the reverse.
 
 ## 8. Independent reference evaluator design
 
-**Owner:** `@obinexusltd/obix-validator` (deps: `obix-spec`, `obix-ir` — **below** the
+**Owner:** `obix-validator` (deps: `obix-spec`, `obix-ir` — **below** the
 adapters in the graph).
 
 ```ts
@@ -431,13 +433,13 @@ tests:
 * folds by invoking `artifact.actions[name](current, payload, props)` directly.
 
 The duplication of the fold is deliberate — it is the whole mechanism. The validator **defines
-the expected result**; `obix-test` tests the adapters against it.
+the expected result**; `obix-equivalence` tests the adapters against it.
 
 ---
 
 ## 9. Adapter Equivalence architecture
 
-**Owner of the shared execution primitive:** `@obinexusltd/obix-ir`.
+**Owner of the shared execution primitive:** `obix-ir`.
 
 ```ts
 applyAction(artifact, state, actionName, payload, props)
@@ -448,7 +450,7 @@ Every adapter (`data`, `functional`, `oop`, `reactive`, `native`) routes transit
 `applyAction`. No adapter threads arguments differently; there is never a second implementation
 of an action; the compiler never emits four copies of adapter source.
 
-**Owner of the orchestration:** `@obinexusltd/obix-test`.
+**Owner of the orchestration:** `obix-equivalence`.
 
 ```
 expected = obix-validator.referenceFold(artifact, initialState, props, trace)
@@ -476,7 +478,7 @@ The compiler's own emitted Timer module is run through the same `checkEquivalenc
 
 ## 10. Runtime package design
 
-**One runtime package** (`@obinexusltd/obix-runtime`) with internal modules only conceptually
+**One runtime package** (`obix-runtime`) with internal modules only conceptually
 (the Level 0 surface is small enough to be one file). Public surface:
 
 ```
@@ -487,7 +489,7 @@ Rules: no business logic, no component model, no VDOM, no router, no DI, no stor
 dependencies (not even `obix-spec` at runtime — local minimal types). `"sideEffects": false`.
 Every DOM access is inside a function body, so an unused helper is fully tree-shaken.
 
-`@obinexusltd/obix-effects` is a **separate** package (not merged): scheduler + `every` +
+`obix-effects` is a **separate** package (not merged): scheduler + `every` +
 `createVirtualClock`. It is not on the runtime's critical path — only the reactive adapter's
 effects lifecycle imports it. `after` / `on` throw `UnsupportedFeatureError` at Level 0.
 
@@ -499,7 +501,7 @@ gzips. Thresholds: runtime core ≤ 4096 B; Timer inline helper subset ≤ 6144 
 
 ## 11. Accessibility integration strategy
 
-**Design chosen: a hybrid of A and B.** `@obinexusltd/obix-accessibility` is a separate public
+**Design chosen: a hybrid of A and B.** `obix-accessibility` is a separate public
 package (Design A packaging) that is a **mandatory, non-optional `dependencies` edge** of the
 compiler (Design B behaviour).
 
@@ -514,7 +516,7 @@ compiler (Design B behaviour).
 * **No runtime `announce()`** in this package — live-region updates are ordinary
   `obix-runtime` bindings.
 
-`npm install @obinexusltd/obix-compiler` ⇒ accessibility checks are present. Guaranteed by
+`npm install obix-compiler` ⇒ accessibility checks are present. Guaranteed by
 GATE 7, which also proves the compiler bundle transitively contains the package.
 
 ---
@@ -543,7 +545,7 @@ Level 0).
 
 ## 13. Canonical type ownership
 
-**Source of truth:** TypeScript source in `@obinexusltd/obix-spec` (`src/types.ts` +
+**Source of truth:** TypeScript source in `obix-spec` (`src/types.ts` +
 `src/diagnostics.ts` + `src/version.ts` + `src/scope-token.ts`). `.d.ts` is emitted from it
 (`declaration: true`, `declarationMap: true`).
 
@@ -564,7 +566,7 @@ TS declarations aligned, because they are literally the same source.
 
 * **`OBIX_VERSION`** (repo root, plain text) — the one version line. Currently `0.2.1`.
 * All twenty `package.json` `version` fields = `OBIX_VERSION`.
-* Every internal `@obinexusltd/obix-*` dependency = the **exact** `OBIX_VERSION` string. No
+* Every internal `obix-*` dependency = the **exact** `OBIX_VERSION` string. No
   ranges, no `*`, no `workspace:*`. npm workspaces still links locally because the local
   version satisfies an exact match.
 * `.npmrc` sets `save-exact=true`.
@@ -579,7 +581,7 @@ TS declarations aligned, because they are literally the same source.
 
 ## 15. Golden fixture location / version strategy
 
-* **Location:** inside `@obinexusltd/obix-timer` —
+* **Location:** inside `obix-timer` —
   `packages/obix-timer/fixture/{Timer.obix, Timer.test.obix, Timer.obix.test}` (the working
   copy) and `packages/obix-timer/fixtures/draft-0.2.1-addendum-a/` (the **immutable snapshot**
   + `CHECKSUM`).
@@ -612,7 +614,7 @@ TS declarations aligned, because they are literally the same source.
 * **No `package.json` tricks** — no `"browser"` field, no conditional `"node"`/`"browser"`
   exports pointing at an empty module. Purity is structural.
 * **Placement:** SSR lives in its own public package (`obix-adapter-ssr`), *not* folded into
-  `obix-compiler` emitters or `@obinexusltd/obix` — so a Node-only consumer imports it without
+  `obix-compiler` emitters or a top-level `obix` — so a Node-only consumer imports it without
   the compiler graph. Level 0 exposes `renderToString` only; `renderToStream` throws
   `UnsupportedFeatureError(…, 1)`.
 
@@ -640,7 +642,7 @@ Operational at Level 0 (real code, not stubs):
 ```
 obix-spec  obix-ir  obix-parser  obix-template  obix-styles  obix-compiler
 obix-adapter-data  obix-adapter-func  obix-adapter-oop  obix-adapter-reactive
-obix-adapter-native  obix-runtime  obix-effects(every)  obix-validator  obix-test
+obix-adapter-native  obix-runtime  obix-effects(every)  obix-validator  obix-equivalence
 obix-accessibility  obix-cli  obix-timer
 ```
 
@@ -668,13 +670,13 @@ Deferred, and **not** given packages of their own now:
 * `obix-effects`: `after`, `on`
 * `obix-compiler`: `inline` / `shared-inline` emit + bundler chunk-boundary markers
 * `obix-accessibility`: the full accessibility-contract runner
-* `obix-test`: a browser-only lightweight sub-bundle (the subpath exports already carve the
+* `obix-equivalence`: a browser-only lightweight sub-bundle (the subpath exports already carve the
   seam)
 * async requests, OBIXverse, Gradle / mobile packaging, legacy mass migration
 
 Tiny internal APIs added now purely to avoid a future breaking change: `EmitMode` (all four
 values typed); `DOPArtifact.template` / `.style` / `.a11y` optional fields;
-`EffectDescriptor.kind` covering `after` / `on`; `obix-test` subpath exports.
+`EffectDescriptor.kind` covering `after` / `on`; `obix-equivalence` subpath exports.
 
 ---
 
@@ -709,11 +711,11 @@ Root:
 }
 ```
 
-A leaf package (`@obinexusltd/obix-adapter-func`):
+A leaf package (`obix-adapter-func`):
 
 ```json
 {
-  "name": "@obinexusltd/obix-adapter-func",
+  "name": "obix-adapter-func",
   "version": "0.2.1",
   "type": "module",
   "private": false,
@@ -722,15 +724,15 @@ A leaf package (`@obinexusltd/obix-adapter-func`):
   "files": ["dist", "README.md", "LICENSE"],
   "scripts": { "build": "tsc -p tsconfig.json" },
   "dependencies": {
-    "@obinexusltd/obix-spec": "0.2.1",
-    "@obinexusltd/obix-ir": "0.2.1"
+    "obix-spec": "0.2.1",
+    "obix-ir": "0.2.1"
   },
   "publishConfig": { "access": "public" },
   "engines": { "node": ">=20.11.0" }
 }
 ```
 
-The CLI adds `"bin": { "obixc": "./dist/bin/obixc.js" }`. `obix-test` adds subpath exports
+The CLI adds `"bin": { "obixc": "./dist/bin/obixc.js" }`. `obix-equivalence` adds subpath exports
 (`./equivalence`, `./behavioural`, `./contracts`, `./virtual-time`). `obix-timer` adds
 `"fixture"` and `"fixtures"` to `files` and an `"./Timer.obix"` export.
 
@@ -775,7 +777,7 @@ obix/                                  ← monorepo root (npm workspace)
     ├── obix-template/  obix-styles/
     ├── obix-adapter-data/  …-functional/  …-oop/  …-reactive/  …-native/  …-ssr/
     ├── obix-runtime/  obix-effects/
-    ├── obix-validator/  obix-test/  obix-accessibility/
+    ├── obix-validator/  obix-equivalence/  obix-accessibility/
     ├── obix-cli/  obix-language-server/
     └── obix-timer/         {…, fixture/, fixtures/draft-0.2.1-addendum-a/}
 ```
@@ -793,7 +795,7 @@ alongside on disk and is `.gitignore`d out of this repository; it is untouched.)
 |---|---|---|---|
 | build | 20/20 packages compile (topological) | `build-all.mjs` | ✅ |
 | GATE 1 | all 20 package directories exist | `check-package-structure.mjs` | ✅ |
-| GATE 2 | all 20 named `@obinexusltd/obix-*` | `check-package-structure.mjs` | ✅ |
+| GATE 2 | all 20 named `obix-*` | `check-package-structure.mjs` | ✅ |
 | GATE 3 | all 20 at one version; internal deps pinned exact (`OBIX-C011`) | `check-obix-versions.mjs` | ✅ |
 | GATE 4 | zero dependency cycles; declared graph = canonical graph | `check-cycles.mjs` | ✅ |
 | — | 23 dependency-direction rules | `check-graph-rules.mjs` | ✅ |
@@ -818,9 +820,9 @@ metadata.
 |---|---|
 | `SPEC_VERSION = "1.0.0-draft.0.2.1"` | `SPEC_VERSION = "0.2.1"`; one `OBIX_VERSION` file drives all 20 |
 | Independent per-package versions / compatibility matrix (`obix-versions.json`) | lockstep; exact internal pins; `OBIX-C011` gate; no separate matrix artifact |
-| `obix-validator` imports all adapters for `checkEquivalence` | `obix-validator` imports **no** adapter; owns `referenceFold` (the oracle); `obix-test` owns `checkEquivalence` and imports the adapters |
+| `obix-validator` imports all adapters for `checkEquivalence` | `obix-validator` imports **no** adapter; owns `referenceFold` (the oracle); `obix-equivalence` owns `checkEquivalence` and imports the adapters |
 | Proposed `obix-validator-core` + `obix-validator-equivalence` split | **not done** — one `obix-validator` |
-| Proposed `obix-test-runtime` + `obix-test-contract` split | **not done** — one `obix-test` with internal modules + subpath exports |
+| Proposed `obix-equivalence-runtime` + `obix-equivalence-contract` split | **not done** — one `obix-equivalence` with internal modules + subpath exports |
 | `obix-accessibility` as compiler dep (kind unspecified) / `--no-a11y` conceivable | **normal `dependencies`** edge; `analyzeA11y` before emit; no `--no-a11y`; GATE 7 |
 | `announce()` runtime helper in `obix-accessibility` | **removed**; live regions are ordinary `obix-runtime` bindings |
 | `generateScopeToken` in `obix-styles` | **moved to `obix-spec`** as `createScopeToken`; `obix-styles` re-exports it |
@@ -874,7 +876,7 @@ None of these blocks the Level 0 milestone or the DOP IR contract.
 
 ### FREEZE PACKAGE GRAPH
 
-The twenty-package `@obinexusltd/obix-*` graph is:
+The twenty-package `obix-*` graph is:
 
 * **acyclic** and identical to the canonical graph in `scripts/graph.mjs` (GATE 4);
 * **lockstep-versioned** with exact internal pins and an `OBIX-C011` gate (GATE 3);

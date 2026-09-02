@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { renderToString, renderToStream } from "../dist/index.js";
-import { TimerDOP } from "@obinexusltd/obix-timer";
+import { TimerDOP } from "obix-timer";
 
 test("renderToString works from artifact.render", () => {
   const html = renderToString(TimerDOP);

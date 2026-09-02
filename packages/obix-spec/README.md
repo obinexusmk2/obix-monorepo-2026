@@ -1,9 +1,9 @@
-# @obinexusltd/obix-spec
+# obix-spec
 
 **Canonical types + structural contracts for OBIX 1.0. Zero runtime dependencies.**
 
 ```bash
-npm install @obinexusltd/obix-spec
+npm install obix-spec
 ```
 
 ## Purpose

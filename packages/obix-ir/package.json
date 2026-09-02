@@ -1,7 +1,7 @@
 {
-  "name": "@obinexusltd/obix-ir",
+  "name": "obix-ir",
   "version": "0.2.1",
-  "description": "Canonical DOP artifact construction and the shared adapter execution primitive applyAction(). Depends only on @obinexusltd/obix-spec.",
+  "description": "Canonical DOP artifact construction and the shared adapter execution primitive applyAction(). Depends only on obix-spec.",
   "license": "MIT",
   "type": "module",
   "private": false,
@@ -20,7 +20,7 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@obinexusltd/obix-spec": "0.2.1"
+    "obix-spec": "0.2.1"
   },
   "publishConfig": {
     "access": "public"

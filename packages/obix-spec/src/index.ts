@@ -1,5 +1,5 @@
 /**
- * @obinexusltd/obix-spec
+ * obix-spec
  *
  * The canonical type surface + structural contracts for OBIX 1.0.
  * Zero runtime dependencies. Every other OBIX package imports its types

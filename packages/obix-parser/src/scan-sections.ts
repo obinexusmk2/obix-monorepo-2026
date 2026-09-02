@@ -1,5 +1,5 @@
-import { DIAGNOSTIC_CODES } from "@obinexusltd/obix-spec";
-import type { Diagnostic, ObixSection } from "@obinexusltd/obix-spec";
+import { DIAGNOSTIC_CODES } from "obix-spec";
+import type { Diagnostic, ObixSection } from "obix-spec";
 import { diag, spanAt } from "./util.js";
 
 export interface ScanResult {

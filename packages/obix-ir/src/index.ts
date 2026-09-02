@@ -1,5 +1,5 @@
 /**
- * @obinexusltd/obix-ir
+ * obix-ir
  *
  * Canonical DOP artifact construction + the shared adapter execution
  * primitive. The layer directly below the adapters.
@@ -23,4 +23,4 @@ export type {
   ActionTrace,
   TraceItem,
   TransitionMeta,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";

@@ -1,10 +1,10 @@
 /**
- * @obinexusltd/obix-test
+ * obix-equivalence
  *
  * Adapter-equivalence orchestration + behavioural/contract DSL parsers. One npm
  * package with internal submodules (equivalence / behavioural / contracts /
  * virtual-time) — NOT split into a 21st package. Also available via subpath
- * exports (`@obinexusltd/obix-test/equivalence`, …).
+ * exports (`obix-equivalence/equivalence`, …).
  */
 export {
   checkEquivalence,
@@ -38,4 +38,4 @@ export {
 } from "./virtual-time/index.js";
 
 // re-export the oracle so a test file has a single import site
-export { referenceFold } from "@obinexusltd/obix-validator";
+export { referenceFold } from "obix-validator";

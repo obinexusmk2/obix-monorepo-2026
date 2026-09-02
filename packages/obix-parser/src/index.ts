@@ -1,5 +1,5 @@
 /**
- * @obinexusltd/obix-parser
+ * obix-parser
  *
  * Section scanner + strict OBIX template/script parser. Produces an AST whose
  * structural correctness is re-checked by obix-spec.validateObixAST() before
@@ -10,7 +10,7 @@ import {
   type Diagnostic,
   type ObixAST,
   type ValidationResult,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 import { scanSections } from "./scan-sections.js";
 import { parseTemplate } from "./parse-template.js";
 import { parseScript } from "./parse-script.js";

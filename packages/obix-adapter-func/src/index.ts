@@ -1,11 +1,11 @@
 /**
- * @obinexusltd/obix-adapter-func
+ * obix-adapter-func
  *
  * The Functional projection: a `pure` namespace (`reduce` / `replay`) and a
  * `create()` closure instance. Every action execution routes through
  * obix-ir.applyAction — never a second, differently-shaped call.
  */
-import { applyAction } from "@obinexusltd/obix-ir";
+import { applyAction } from "obix-ir";
 import type {
   DOPArtifact,
   State,
@@ -13,7 +13,7 @@ import type {
   Payload,
   ActionTrace,
   ValidationResult,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 
 export interface FunctionalInstance<S extends object, P extends object> {
   getState(): S;

@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { createDOP } from "@obinexusltd/obix-ir";
+import { createDOP } from "obix-ir";
 import { referenceFold, checkActionPropDeps, checkPipelineInvariant } from "../dist/index.js";
 
 // hermetic mini artifact — the validator package never imports an adapter or the fixture
@@ -34,7 +34,7 @@ test("obix-validator package.json declares no adapter dependency", () => {
   const pkg = JSON.parse(readFileSync(fileURLToPath(new URL("../package.json", import.meta.url)), "utf8"));
   const deps = Object.keys(pkg.dependencies ?? {});
   assert.ok(!deps.some((d) => d.includes("obix-adapter-")), `unexpected adapter dep: ${deps}`);
-  assert.ok(!deps.includes("@obinexusltd/obix-test"));
+  assert.ok(!deps.includes("obix-equivalence"));
 });
 
 test("referenceFold folds actions directly and reports per-step history", () => {

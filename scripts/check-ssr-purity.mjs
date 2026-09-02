@@ -67,7 +67,7 @@ for (const re of DOM_TOKENS) {
 
 const inputs = Object.keys(res.metafile.inputs).map((p) => p.replace(/\\/g, "/"));
 for (const f of forbidden) {
-  if (inputs.some((p) => p.includes(`/packages/${f}/`) || p.includes(`@obinexusltd/${f}/`))) {
+  if (inputs.some((p) => p.includes(`/packages/${f}/`) || p.includes(`/node_modules/${f}/`))) {
     fail(`SSR bundle transitively includes ${f}`);
     errors++;
   }

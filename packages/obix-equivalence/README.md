@@ -1,9 +1,9 @@
-# @obinexusltd/obix-test
+# obix-equivalence
 
 **Adapter-equivalence orchestration + behavioural / contract DSL parsers.**
 
 ```bash
-npm install @obinexusltd/obix-test
+npm install obix-equivalence
 ```
 
 ## Equivalence (Problem 1)
@@ -25,7 +25,7 @@ compared only to each other.
 
 | Import | Contents |
 |---|---|
-| `@obinexusltd/obix-test` | everything |
+| `obix-equivalence` | everything |
 | `.../equivalence` | `checkEquivalence` |
 | `.../behavioural` | `parseTestDSL` (`Timer.test.obix`) |
 | `.../contracts` | `parseContractDSL` (`Timer.obix.test`) |

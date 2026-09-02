@@ -1,4 +1,4 @@
-import { DIAGNOSTIC_CODES } from "@obinexusltd/obix-spec";
+import { DIAGNOSTIC_CODES } from "obix-spec";
 import type {
   DOPArtifact,
   State,
@@ -7,7 +7,7 @@ import type {
   ActionTrace,
   ValidationResult,
   TransitionMeta,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 import { calculateChangedKeys, assertClosedStateShape } from "./diff.js";
 
 /**

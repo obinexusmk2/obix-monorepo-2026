@@ -1,5 +1,5 @@
 /**
- * @obinexusltd/obix-template
+ * obix-template
  *
  * Pure semantic template analysis. Given a parsed template element it returns
  * binding + event descriptors and the dependencies each binding reads. It never
@@ -10,7 +10,7 @@ import type {
   TemplateDescriptor,
   BindingDescriptor,
   EventDescriptor,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 
 const PATH = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*$/;
 

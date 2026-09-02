@@ -1,4 +1,4 @@
-import { DIAGNOSTIC_CODES } from "@obinexusltd/obix-spec";
+import { DIAGNOSTIC_CODES } from "obix-spec";
 
 /** Keys whose value differs by Object.is between two state snapshots. */
 export function calculateChangedKeys(prev: object, next: object): string[] {

@@ -1,10 +1,10 @@
-import { DIAGNOSTIC_CODES } from "@obinexusltd/obix-spec";
+import { DIAGNOSTIC_CODES } from "obix-spec";
 import type {
   Diagnostic,
   TemplateAttr,
   TemplateElement,
   TemplateNode,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 import { diag, spanAt, BOOLEAN_ATTRS, SEMANTIC_TAGS, VOID_TAGS } from "./util.js";
 
 export interface ParseTemplateResult {

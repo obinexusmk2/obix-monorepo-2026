@@ -1,9 +1,9 @@
-# @obinexusltd/obix-adapter-func
+# obix-adapter-func
 
 **The Functional projection — `reduce` / `replay` + a `create()` closure.**
 
 ```bash
-npm install @obinexusltd/obix-adapter-func
+npm install obix-adapter-func
 ```
 
 ## API
@@ -21,7 +21,7 @@ There is no alternative action-invocation shape in this package.
 
 ## Dependency role
 
-`obix-spec` + `obix-ir`. Consumed by `obix-test` and `obix-timer`.
+`obix-spec` + `obix-ir`. Consumed by `obix-equivalence` and `obix-timer`.
 
 ## Level 0 status
 

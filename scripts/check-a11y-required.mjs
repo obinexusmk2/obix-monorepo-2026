@@ -1,7 +1,7 @@
 /**
  * GATE 7 — the compiler cannot build without accessibility analysis.
  *
- *  (a) obix-compiler declares a NORMAL dependency on @obinexusltd/obix-accessibility
+ *  (a) obix-compiler declares a NORMAL dependency on obix-accessibility
  *      (not optional / not peer)
  *  (b) the built compiler bundle transitively includes obix-accessibility
  *  (c) compiling a component with an a11y error yields ok:false and no emitted code
@@ -17,10 +17,10 @@ console.log(BOLD("check:a11y-required\n"));
 let errors = 0;
 
 const pkg = readPkgJson("obix-compiler");
-if (!(pkg.dependencies ?? {})["@obinexusltd/obix-accessibility"]) {
-  fail("obix-compiler does not declare a normal dependency on @obinexusltd/obix-accessibility");
+if (!(pkg.dependencies ?? {})["obix-accessibility"]) {
+  fail("obix-compiler does not declare a normal dependency on obix-accessibility");
   errors++;
-} else if ((pkg.peerDependencies ?? {})["@obinexusltd/obix-accessibility"] || (pkg.optionalDependencies ?? {})["@obinexusltd/obix-accessibility"]) {
+} else if ((pkg.peerDependencies ?? {})["obix-accessibility"] || (pkg.optionalDependencies ?? {})["obix-accessibility"]) {
   fail("obix-accessibility must be a normal dependency, not peer/optional");
   errors++;
 } else {

@@ -1,4 +1,4 @@
-import type { Diagnostic, DiagnosticSeverity, SourceSpan } from "@obinexusltd/obix-spec";
+import type { Diagnostic, DiagnosticSeverity, SourceSpan } from "obix-spec";
 
 export function spanAt(source: string, start: number, end: number): SourceSpan {
   let line = 1;

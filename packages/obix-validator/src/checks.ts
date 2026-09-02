@@ -1,4 +1,4 @@
-import { DIAGNOSTIC_CODES } from "@obinexusltd/obix-spec";
+import { DIAGNOSTIC_CODES } from "obix-spec";
 import type {
   DOPArtifact,
   State,
@@ -6,7 +6,7 @@ import type {
   ValidationDescriptor,
   ValidationResult,
   Violation,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 
 const result = (violations: Violation[]): ValidationResult => ({
   valid: violations.length === 0,

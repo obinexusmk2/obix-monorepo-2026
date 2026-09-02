@@ -1,5 +1,5 @@
 {
-  "name": "@obinexusltd/obix-runtime",
+  "name": "obix-runtime",
   "version": "0.2.1",
   "description": "The OBIX browser binding runtime. Text/attr/bool/aria/event binding helpers only. No business logic, no VDOM, no router, no store. Tree-shaken bundle <= 4 KB gzip. Zero dependencies.",
   "license": "MIT",

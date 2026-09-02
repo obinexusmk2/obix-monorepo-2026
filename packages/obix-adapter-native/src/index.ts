@@ -1,5 +1,5 @@
 /**
- * @obinexusltd/obix-adapter-native
+ * obix-adapter-native
  *
  * The Native projection — the ONLY adapter that touches DOM APIs. It builds the
  * DOM from the artifact's template descriptor, wires obix-runtime bindings, and
@@ -9,7 +9,7 @@
  * Level 0: text / attribute / boolean / ARIA bindings, single-element `obix:if`,
  * native event binding. No loops, slots or hydration.
  */
-import { toReactive, type ReactiveInstance } from "@obinexusltd/obix-adapter-reactive";
+import { toReactive, type ReactiveInstance } from "obix-adapter-reactive";
 import {
   bindText,
   bindAttr,
@@ -18,15 +18,15 @@ import {
   bindEvent,
   bindPresence,
   createBindingGroup,
-} from "@obinexusltd/obix-runtime";
-import { SCOPE_ATTR } from "@obinexusltd/obix-spec";
+} from "obix-runtime";
+import { SCOPE_ATTR } from "obix-spec";
 import type {
   DOPArtifact,
   State,
   Props,
   TemplateElement,
   TemplateNode,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 
 export interface MountHandle<S extends object, P extends object> {
   instance: ReactiveInstance<S, P>;

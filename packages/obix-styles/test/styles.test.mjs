@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { scopeCss, scopeComponentCss, createScopeToken } from "../dist/index.js";
-import { createScopeToken as specToken } from "@obinexusltd/obix-spec";
+import { createScopeToken as specToken } from "obix-spec";
 
 test("re-exports the ONE canonical token function", () => {
   assert.equal(createScopeToken, specToken);

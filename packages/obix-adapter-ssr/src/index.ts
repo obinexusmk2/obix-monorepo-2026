@@ -1,5 +1,5 @@
 /**
- * @obinexusltd/obix-adapter-ssr
+ * obix-adapter-ssr
  *
  * The SSR projection. DOM-free by construction: this module references no
  * `window`, `document`, `HTMLElement`, `Element`, `Node` or `addEventListener`,
@@ -15,7 +15,7 @@ import {
   type Props,
   type TemplateElement,
   type TemplateNode,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 
 export interface RenderOptions<S extends object, P extends object> {
   state?: S;

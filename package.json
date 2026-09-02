@@ -2,7 +2,7 @@
   "name": "obix-monorepo",
   "version": "0.2.1",
   "private": true,
-  "description": "OBIX 1.0 — DOP-Native Component Language. Monorepo for the twenty @obinexusltd/obix-* public packages.",
+  "description": "OBIX 1.0 — DOP-Native Component Language. Monorepo for the twenty obix-* public packages.",
   "license": "MIT",
   "author": "OBINexus Computing — Nnamdi Michael Okpala <obinexusmk2@proton.me>",
   "type": "module",

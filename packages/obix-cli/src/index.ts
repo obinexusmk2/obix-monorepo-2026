@@ -1,20 +1,20 @@
 /**
- * @obinexusltd/obix-cli — programmatic entry points behind the `obixc` binary.
- * These are thin wrappers; all real work lives in obix-compiler / obix-test /
+ * obix-cli — programmatic entry points behind the `obixc` binary.
+ * These are thin wrappers; all real work lives in obix-compiler / obix-equivalence /
  * obix-validator.
  */
 import { writeFileSync, mkdirSync } from "node:fs";
 import { join, basename } from "node:path";
-import { compileFile, checkSource } from "@obinexusltd/obix-compiler";
+import { compileFile, checkSource } from "obix-compiler";
 import { readFileSync } from "node:fs";
 import {
   checkEquivalence,
   parseTestDSL,
   parseContractDSL,
   runWithVirtualTime,
-} from "@obinexusltd/obix-test";
+} from "obix-equivalence";
 import { loadComponent, parseTrace } from "./runtime.js";
-import type { Diagnostic, TraceItem } from "@obinexusltd/obix-spec";
+import type { Diagnostic, TraceItem } from "obix-spec";
 
 export interface CliResult {
   ok: boolean;

@@ -1,9 +1,9 @@
-# @obinexusltd/obix-ir
+# obix-ir
 
 **Canonical DOP artifact construction + the shared adapter execution primitive.**
 
 ```bash
-npm install @obinexusltd/obix-ir
+npm install obix-ir
 ```
 
 ## Purpose
@@ -35,7 +35,7 @@ also being in the thing that checks it.
 
 ## Dependency role
 
-Depends only on `@obinexusltd/obix-spec`. Imported by every adapter, the
+Depends only on `obix-spec`. Imported by every adapter, the
 validator, the compiler, the test harness and the Timer fixture.
 
 ## Level 0 status

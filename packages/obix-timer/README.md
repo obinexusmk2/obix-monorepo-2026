@@ -1,9 +1,9 @@
-# @obinexusltd/obix-timer
+# obix-timer
 
 **The frozen OBIX golden fixture.** Reference fixture · teaching example · acceptance artifact.
 
 ```bash
-npm install @obinexusltd/obix-timer
+npm install obix-timer
 ```
 
 ## What ships

@@ -1,9 +1,9 @@
-# @obinexusltd/obix-adapter-ssr
+# obix-adapter-ssr
 
 **The SSR projection — DOM-free `renderToString`.**
 
 ```bash
-npm install @obinexusltd/obix-adapter-ssr
+npm install obix-adapter-ssr
 ```
 
 ## API

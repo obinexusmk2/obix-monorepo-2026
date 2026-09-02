@@ -6,18 +6,18 @@
  * implementations could share one bug); every adapter is compared to the
  * oracle, at every step, for state / render / validation.
  */
-import { referenceFold } from "@obinexusltd/obix-validator";
-import { toData, dataRender, dataValidate } from "@obinexusltd/obix-adapter-data";
-import { toFunctional } from "@obinexusltd/obix-adapter-func";
-import { toOOP } from "@obinexusltd/obix-adapter-oop";
-import { toReactive } from "@obinexusltd/obix-adapter-reactive";
+import { referenceFold } from "obix-validator";
+import { toData, dataRender, dataValidate } from "obix-adapter-data";
+import { toFunctional } from "obix-adapter-func";
+import { toOOP } from "obix-adapter-oop";
+import { toReactive } from "obix-adapter-reactive";
 import type {
   DOPArtifact,
   State,
   Props,
   ActionTrace,
   ValidationResult,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 
 export interface EquivalenceScenario<S extends object, P extends object> {
   trace: ActionTrace;

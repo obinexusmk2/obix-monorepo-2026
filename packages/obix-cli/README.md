@@ -1,9 +1,9 @@
-# @obinexusltd/obix-cli
+# obix-cli
 
 **`obixc` — the OBIX command-line tool.**
 
 ```bash
-npm install -g @obinexusltd/obix-cli
+npm install -g obix-cli
 ```
 
 ## Commands
@@ -19,12 +19,12 @@ npm install -g @obinexusltd/obix-cli
 ## Design
 
 The CLI **orchestrates**; it holds no compiler or test logic. `build` / `check`
-call `@obinexusltd/obix-compiler`; `test` / `equivalence` call
-`@obinexusltd/obix-test`; validation comes from `@obinexusltd/obix-validator`.
+call `obix-compiler`; `test` / `equivalence` call
+`obix-equivalence`; validation comes from `obix-validator`.
 
 ## Dependency role
 
-`obix-compiler`, `obix-test`, `obix-validator`. Nothing depends on the CLI.
+`obix-compiler`, `obix-equivalence`, `obix-validator`. Nothing depends on the CLI.
 
 ## Level 0 status
 

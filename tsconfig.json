@@ -18,7 +18,7 @@
     { "path": "packages/obix-adapter-reactive" },
     { "path": "packages/obix-adapter-native" },
     { "path": "packages/obix-adapter-ssr" },
-    { "path": "packages/obix-test" },
+    { "path": "packages/obix-equivalence" },
     { "path": "packages/obix-cli" },
     { "path": "packages/obix-language-server" },
     { "path": "packages/obix-timer" },

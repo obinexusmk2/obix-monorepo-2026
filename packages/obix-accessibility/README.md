@@ -1,9 +1,9 @@
-# @obinexusltd/obix-accessibility
+# obix-accessibility
 
 **Compile-time accessibility analysis for OBIX. Mandatory. Not optional.**
 
 ```bash
-npm install @obinexusltd/obix-accessibility
+npm install obix-accessibility
 ```
 
 ## Purpose
@@ -20,7 +20,7 @@ npm install @obinexusltd/obix-accessibility
 
 The 20-package graph keeps accessibility as its own public package, but
 `obix-compiler` declares a **normal, required** dependency on it — not a peer, not
-optional. `npm install @obinexusltd/obix-compiler` installs a11y analysis, and no
+optional. `npm install obix-compiler` installs a11y analysis, and no
 supported flag turns it off. There is no `--no-a11y`. Enforced by
 `scripts/check-a11y-required.mjs` (GATE 7).
 

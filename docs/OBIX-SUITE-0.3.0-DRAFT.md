@@ -4,7 +4,7 @@
 |---|---|
 | Document | Unscoped `obix-*` application-suite architecture |
 | Status | Draft — Level 0, parallel track |
-| Relationship to OBIX 1.0 | **Does not supersede** `OBIX-1.0-LEVEL-0-PACKAGE-ARCHITECTURE-REVISION-DRAFT-0.2.2-CANDIDATE.md`. The frozen twenty `@obinexusltd/obix-*` packages in `packages/` are untouched. |
+| Relationship to OBIX 1.0 | **Does not supersede** `OBIX-1.0-LEVEL-0-PACKAGE-ARCHITECTURE-REVISION-DRAFT-0.2.2-CANDIDATE.md`. The frozen twenty packages in `packages/` keep their behaviour; only names changed this pass — see §7 (de-scoped `@obinexusltd/obix-*` → `obix-*`, `obix-test` → `obix-equivalence`, `obix-adapter-functional` → `obix-adapter-func`). |
 | Version line | `suite/SUITE_VERSION` = `0.3.0`, independent of `OBIX_VERSION` (`0.2.1`) |
 | Author | OBINexus Computing — Nnamdi Michael Okpala |
 
@@ -166,13 +166,28 @@ any static host, `file://`) and when bundled (`obix build`).
 
 ---
 
-## 7. Frozen-graph change in this pass
+## 7. Frozen-graph changes in this pass
 
-One sanctioned edit to `packages/`: `@obinexusltd/obix-adapter-functional` is
-renamed to **`@obinexusltd/obix-adapter-func`** (directory, `package.json` name,
-`scripts/graph.mjs`, the two consumers `obix-test` / `obix-timer`, root
-`tsconfig.json`, root `README.md`, and the 0.2.2-candidate doc's name tokens).
-The export `toFunctional` is unchanged. `npm run ci` remains green.
+Sanctioned edits to `packages/` (metadata / names only — no behaviour change,
+`npm run ci` stays green):
+
+1. **`obix-adapter-functional` → `obix-adapter-func`** — directory + `package.json`
+   name. The export `toFunctional` is unchanged.
+2. **Full de-scope: `@obinexusltd/obix-*` → bare `obix-*`** so the packages
+   publish unscoped. `scripts/graph.mjs` `SCOPE` is now `""`; `pkgName(short)`
+   returns the bare name; every `package.json` `name`/`dependencies`, every
+   `import`, every gate script (`check-obix-versions`, `check-a11y-required`,
+   `check-ssr-purity`, `_lib.internalDeps`) and both docs were rewritten by a
+   mechanical pass.
+3. **`@obinexusltd/obix-test` → `obix-equivalence`** (directory
+   `packages/obix-test` → `packages/obix-equivalence`) to free the bare
+   `obix-test` name for this suite's headless harness. Its role and subpath
+   exports (`./equivalence`, `./behavioural`, `./contracts`, `./virtual-time`)
+   are unchanged.
+
+This reverses draft 0.2.2 §Problem 3 ("REJECT scope de-scoping as a blocker"),
+which itself noted a re-scope would be "a one-constant change plus a workspace
+re-link" — which is what this was.
 
 ---
 

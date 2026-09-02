@@ -1,6 +1,6 @@
 /**
  * GATE 1  — all 20 package directories exist
- * GATE 2  — all 20 have correct @obinexusltd/obix-* names
+ * GATE 2  — all 20 have correct unscoped obix-* names
  * GATE 10 — every package emits TypeScript declarations (dist/index.d.ts) after build
  * GATE 12 — no package would publish src/, node_modules/, tsbuildinfo
  * plus: common package.json contract (type:module, private:false, publishConfig, exports, sideEffects, engines)

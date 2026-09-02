@@ -1,5 +1,5 @@
 {
-  "name": "@obinexusltd/obix-cli",
+  "name": "obix-cli",
   "version": "0.2.1",
   "description": "The obixc command-line tool. Orchestrates the OBIX compiler, test harness and validator — it contains no compiler or test logic of its own.",
   "license": "MIT",
@@ -23,9 +23,9 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@obinexusltd/obix-compiler": "0.2.1",
-    "@obinexusltd/obix-test": "0.2.1",
-    "@obinexusltd/obix-validator": "0.2.1"
+    "obix-compiler": "0.2.1",
+    "obix-equivalence": "0.2.1",
+    "obix-validator": "0.2.1"
   },
   "publishConfig": {
     "access": "public"

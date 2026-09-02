@@ -1,9 +1,9 @@
-# @obinexusltd/obix-language-server
+# obix-language-server
 
 **Editor intelligence for `.obix` files.**
 
 ```bash
-npm install @obinexusltd/obix-language-server
+npm install obix-language-server
 ```
 
 ## API

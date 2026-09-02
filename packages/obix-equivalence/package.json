@@ -1,5 +1,5 @@
 {
-  "name": "@obinexusltd/obix-test",
+  "name": "obix-equivalence",
   "version": "0.2.1",
   "description": "OBIX adapter-equivalence orchestration + behavioural/contract DSL parsers. Compares every projection to the INDEPENDENT obix-validator.referenceFold oracle, step by step. Depends on spec, ir, validator and the four pure adapters.",
   "license": "MIT",
@@ -36,13 +36,13 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@obinexusltd/obix-spec": "0.2.1",
-    "@obinexusltd/obix-ir": "0.2.1",
-    "@obinexusltd/obix-validator": "0.2.1",
-    "@obinexusltd/obix-adapter-data": "0.2.1",
-    "@obinexusltd/obix-adapter-func": "0.2.1",
-    "@obinexusltd/obix-adapter-oop": "0.2.1",
-    "@obinexusltd/obix-adapter-reactive": "0.2.1"
+    "obix-spec": "0.2.1",
+    "obix-ir": "0.2.1",
+    "obix-validator": "0.2.1",
+    "obix-adapter-data": "0.2.1",
+    "obix-adapter-func": "0.2.1",
+    "obix-adapter-oop": "0.2.1",
+    "obix-adapter-reactive": "0.2.1"
   },
   "publishConfig": {
     "access": "public"
@@ -53,6 +53,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/obinexusmk2/obix-monorepo-2026.git",
-    "directory": "packages/obix-test"
+    "directory": "packages/obix-equivalence"
   }
 }

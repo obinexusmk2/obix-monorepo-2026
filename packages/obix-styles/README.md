@@ -1,9 +1,9 @@
-# @obinexusltd/obix-styles
+# obix-styles
 
 **Scoped CSS transformation for OBIX.**
 
 ```bash
-npm install @obinexusltd/obix-styles
+npm install obix-styles
 ```
 
 ## Purpose
@@ -26,7 +26,7 @@ The rightmost compound selector of every rule gets `[data-obix-scope="<token>"]`
 
 ## Dependency role
 
-Depends only on `@obinexusltd/obix-spec`. Consumed by `obix-compiler`.
+Depends only on `obix-spec`. Consumed by `obix-compiler`.
 
 ## Level 0 status
 

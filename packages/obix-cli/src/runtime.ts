@@ -2,14 +2,14 @@ import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { compileFile } from "@obinexusltd/obix-compiler";
-import type { DOPArtifact, TraceItem } from "@obinexusltd/obix-spec";
+import { compileFile } from "obix-compiler";
+import type { DOPArtifact, TraceItem } from "obix-spec";
 
-/** Resolve the on-disk URL of @obinexusltd/obix-ir so emitted temp modules
+/** Resolve the on-disk URL of obix-ir so emitted temp modules
  *  can import it from anywhere. */
 function irImportUrl(): string {
   // import.meta.resolve is stable on Node 20.6+
-  return import.meta.resolve("@obinexusltd/obix-ir");
+  return import.meta.resolve("obix-ir");
 }
 
 export interface LoadedComponent {

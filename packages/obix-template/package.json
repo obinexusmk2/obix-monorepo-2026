@@ -1,7 +1,7 @@
 {
-  "name": "@obinexusltd/obix-template",
+  "name": "obix-template",
   "version": "0.2.1",
-  "description": "Pure semantic template analysis for OBIX: binding + event descriptor construction and dependency extraction. No JS parsing, no DOM. Depends only on @obinexusltd/obix-spec.",
+  "description": "Pure semantic template analysis for OBIX: binding + event descriptor construction and dependency extraction. No JS parsing, no DOM. Depends only on obix-spec.",
   "license": "MIT",
   "type": "module",
   "private": false,
@@ -20,7 +20,7 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@obinexusltd/obix-spec": "0.2.1"
+    "obix-spec": "0.2.1"
   },
   "publishConfig": {
     "access": "public"

@@ -1,13 +1,13 @@
 /**
- * @obinexusltd/obix-styles
+ * obix-styles
  *
  * Scoped CSS transformation. The scope token comes from the ONE canonical
  * function in obix-spec (Problem 10 — no token drift). This package does not
  * generate the token; it applies it.
  */
-import { createScopeToken, SCOPE_ATTR, type Diagnostic } from "@obinexusltd/obix-spec";
+import { createScopeToken, SCOPE_ATTR, type Diagnostic } from "obix-spec";
 
-export { createScopeToken, SCOPE_ATTR } from "@obinexusltd/obix-spec";
+export { createScopeToken, SCOPE_ATTR } from "obix-spec";
 
 export interface ScopeResult {
   css: string;

@@ -1,9 +1,9 @@
-# @obinexusltd/obix-template
+# obix-template
 
 **Pure semantic template analysis for OBIX.**
 
 ```bash
-npm install @obinexusltd/obix-template
+npm install obix-template
 ```
 
 ## Purpose
@@ -26,7 +26,7 @@ npm install @obinexusltd/obix-template
 
 ## Dependency role
 
-Depends only on `@obinexusltd/obix-spec`. Consumed by `obix-compiler`,
+Depends only on `obix-spec`. Consumed by `obix-compiler`,
 `obix-accessibility` and `obix-language-server`.
 
 ## Level 0 status

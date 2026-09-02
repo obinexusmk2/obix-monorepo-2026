@@ -2,7 +2,7 @@ import {
   SPEC_VERSION,
   LEVEL,
   validateArtifactShape,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 import type {
   DOPArtifact,
   ActionFn,
@@ -15,7 +15,7 @@ import type {
   State,
   Props,
   ValidationResult,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 import { deepFreeze } from "./freeze.js";
 
 export interface DopDefinition<S extends object = State, P extends object = Props> {

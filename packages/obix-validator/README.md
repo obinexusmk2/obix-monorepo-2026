@@ -1,9 +1,9 @@
-# @obinexusltd/obix-validator
+# obix-validator
 
 **Validation + the independent reference evaluator (`referenceFold`).**
 
 ```bash
-npm install @obinexusltd/obix-validator
+npm install obix-validator
 ```
 
 ## The oracle (Problem 1)
@@ -21,7 +21,7 @@ adapters shares nothing with the code the adapters run, so a shared bug is
 impossible.
 
 `referenceFold` returns `{ finalState, history, renders, validations }` —
-per-step snapshots so `obix-test` can compare every transition, plus render and
+per-step snapshots so `obix-equivalence` can compare every transition, plus render and
 validation output computed straight from `artifact.render` / `artifact.validate`.
 
 ## Other exports
@@ -35,8 +35,8 @@ validation output computed straight from `artifact.render` / `artifact.validate`
 
 ## Dependency role
 
-`obix-spec` + `obix-ir` only. **Never** an adapter, **never** `obix-test`.
-Consumed by `obix-compiler`, `obix-test` and `obix-cli`.
+`obix-spec` + `obix-ir` only. **Never** an adapter, **never** `obix-equivalence`.
+Consumed by `obix-compiler`, `obix-equivalence` and `obix-cli`.
 
 ## Level 0 status
 

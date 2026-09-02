@@ -6,7 +6,7 @@ import {
   TIMER_TEST_OBIX_SOURCE,
   TIMER_OBIX_TEST_SOURCE,
   EXPECTED_TRACES,
-} from "@obinexusltd/obix-timer";
+} from "obix-timer";
 
 test("checkEquivalence: every projection matches the oracle step-by-step", () => {
   const r = checkEquivalence(TimerDOP, { trace: EXPECTED_TRACES.startTickTickStop.trace });

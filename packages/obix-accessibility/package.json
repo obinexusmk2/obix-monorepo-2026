@@ -1,7 +1,7 @@
 {
-  "name": "@obinexusltd/obix-accessibility",
+  "name": "obix-accessibility",
   "version": "0.2.1",
-  "description": "Compile-time accessibility analysis for OBIX. A MANDATORY dependency of obix-compiler — there is no --no-a11y mode. Depends on @obinexusltd/obix-spec and @obinexusltd/obix-template.",
+  "description": "Compile-time accessibility analysis for OBIX. A MANDATORY dependency of obix-compiler — there is no --no-a11y mode. Depends on obix-spec and obix-template.",
   "license": "MIT",
   "type": "module",
   "private": false,
@@ -20,8 +20,8 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@obinexusltd/obix-spec": "0.2.1",
-    "@obinexusltd/obix-template": "0.2.1"
+    "obix-spec": "0.2.1",
+    "obix-template": "0.2.1"
   },
   "publishConfig": {
     "access": "public"

@@ -7,7 +7,7 @@
  * Consumed by build-all, check-cycles, check-graph-rules, publish-all.
  */
 
-export const SCOPE = "@obinexusltd";
+export const SCOPE = ""; // unscoped: packages publish as bare `obix-*`
 export const PREFIX = "obix-";
 
 /** The 20 public packages, in a stable canonical listing order. */
@@ -27,7 +27,7 @@ export const PACKAGES = [
   "obix-runtime",
   "obix-effects",
   "obix-validator",
-  "obix-test",
+  "obix-equivalence",
   "obix-accessibility",
   "obix-cli",
   "obix-language-server",
@@ -37,7 +37,7 @@ export const PACKAGES = [
 /**
  * Allowed internal runtime dependencies (package.json "dependencies").
  * An edge A -> [B, C] means A may import from B and C, and nothing else
- * inside the @obinexusltd/obix-* family.
+ * inside the obix-* family.
  */
 export const GRAPH = {
   "obix-spec": [],
@@ -64,7 +64,7 @@ export const GRAPH = {
     "obix-accessibility",
     "obix-validator",
   ],
-  "obix-test": [
+  "obix-equivalence": [
     "obix-spec",
     "obix-ir",
     "obix-validator",
@@ -73,7 +73,7 @@ export const GRAPH = {
     "obix-adapter-oop",
     "obix-adapter-reactive",
   ],
-  "obix-cli": ["obix-compiler", "obix-test", "obix-validator"],
+  "obix-cli": ["obix-compiler", "obix-equivalence", "obix-validator"],
   "obix-language-server": ["obix-spec", "obix-parser", "obix-template", "obix-compiler"],
   "obix-timer": [
     "obix-spec",
@@ -88,6 +88,7 @@ export const GRAPH = {
 /**
  * Hard architectural rules from Draft 0.2.1 §6 / §DEPENDENCY GRAPH RULES.
  * Each entry: [description, predicate(graph) => boolean-ok].
+ * ("test" below is the frozen equivalence-orchestration package, now `obix-equivalence`.)
  */
 export const RULES = [
   ["spec depends on nothing", (g) => g["obix-spec"].length === 0],
@@ -95,9 +96,9 @@ export const RULES = [
   ["ir does not depend on compiler", (g) => !g["obix-ir"].includes("obix-compiler")],
   ["parser does not depend on any adapter", (g) => !g["obix-parser"].some((d) => d.startsWith("obix-adapter-"))],
   ["validator does not depend on any adapter", (g) => !g["obix-validator"].some((d) => d.startsWith("obix-adapter-"))],
-  ["validator does not depend on test", (g) => !g["obix-validator"].includes("obix-test")],
+  ["validator does not depend on equivalence", (g) => !g["obix-validator"].includes("obix-equivalence")],
   ["no adapter depends on validator", (g) => PACKAGES.filter((p) => p.startsWith("obix-adapter-")).every((p) => !g[p].includes("obix-validator"))],
-  ["no adapter depends on test", (g) => PACKAGES.filter((p) => p.startsWith("obix-adapter-")).every((p) => !g[p].includes("obix-test"))],
+  ["no adapter depends on equivalence", (g) => PACKAGES.filter((p) => p.startsWith("obix-adapter-")).every((p) => !g[p].includes("obix-equivalence"))],
   ["no adapter depends on compiler", (g) => PACKAGES.filter((p) => p.startsWith("obix-adapter-")).every((p) => !g[p].includes("obix-compiler"))],
   ["runtime does not depend on compiler", (g) => !g["obix-runtime"].includes("obix-compiler")],
   ["effects does not depend on the reactive adapter", (g) => !g["obix-effects"].includes("obix-adapter-reactive")],
@@ -107,9 +108,9 @@ export const RULES = [
   ["accessibility does not depend on compiler", (g) => !g["obix-accessibility"].includes("obix-compiler")],
   ["compiler depends on accessibility (a11y is mandatory)", (g) => g["obix-compiler"].includes("obix-accessibility")],
   ["compiler depends on validator", (g) => g["obix-compiler"].includes("obix-validator")],
-  ["test depends on the four pure adapters", (g) => ["data", "func", "oop", "reactive"].every((a) => g["obix-test"].includes(`obix-adapter-${a}`))],
-  ["test does not depend on the native adapter", (g) => !g["obix-test"].includes("obix-adapter-native")],
-  ["cli depends on compiler and test", (g) => g["obix-cli"].includes("obix-compiler") && g["obix-cli"].includes("obix-test")],
+  ["equivalence depends on the four pure adapters", (g) => ["data", "func", "oop", "reactive"].every((a) => g["obix-equivalence"].includes(`obix-adapter-${a}`))],
+  ["equivalence does not depend on the native adapter", (g) => !g["obix-equivalence"].includes("obix-adapter-native")],
+  ["cli depends on compiler and equivalence", (g) => g["obix-cli"].includes("obix-compiler") && g["obix-cli"].includes("obix-equivalence")],
   ["language-server depends on parser and compiler", (g) => g["obix-language-server"].includes("obix-parser") && g["obix-language-server"].includes("obix-compiler")],
   ["timer is a leaf — nothing depends on it", (g) => PACKAGES.every((p) => !g[p].includes("obix-timer"))],
   ["timer is never a dep of compiler/runtime/adapters", (g) => ["obix-compiler", "obix-runtime", ...PACKAGES.filter((p) => p.startsWith("obix-adapter-"))].every((p) => !g[p].includes("obix-timer"))],
@@ -166,5 +167,5 @@ export function findCycles(graph = GRAPH) {
 }
 
 export function pkgName(short) {
-  return `${SCOPE}/${short}`;
+  return SCOPE ? `${SCOPE}/${short}` : short;
 }

@@ -1,9 +1,9 @@
-# @obinexusltd/obix-parser
+# obix-parser
 
 **Section scanner + strict OBIX template/script parser.**
 
 ```bash
-npm install @obinexusltd/obix-parser
+npm install obix-parser
 ```
 
 ## Purpose
@@ -27,7 +27,7 @@ gate — not a signature — *is* the seal.
 
 ## Dependency role
 
-Depends only on `@obinexusltd/obix-spec`. **Never** depends on any adapter, the
+Depends only on `obix-spec`. **Never** depends on any adapter, the
 runtime, or the compiler. Consumed by `obix-compiler` and `obix-language-server`.
 
 ## Level 0 status

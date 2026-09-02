@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { installGlobalDocument } from "../../../scripts/mini-dom.mjs";
-import { TimerDOP } from "@obinexusltd/obix-timer";
+import { TimerDOP } from "obix-timer";
 
 const { document, root } = installGlobalDocument();
 const { mount } = await import("../dist/index.js");

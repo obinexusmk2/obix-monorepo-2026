@@ -1,8 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { toReactive } from "../dist/index.js";
-import { createVirtualClock } from "@obinexusltd/obix-effects";
-import { TimerDOP } from "@obinexusltd/obix-timer";
+import { createVirtualClock } from "obix-effects";
+import { TimerDOP } from "obix-timer";
 
 test("subscribers receive changedKeys; identity actions do not notify", () => {
   const r = toReactive(TimerDOP)({ props: { limitSeconds: 5 } });

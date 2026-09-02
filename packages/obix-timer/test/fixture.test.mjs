@@ -8,7 +8,7 @@ import {
   verifyFixture,
   EXPECTED_TRACES,
 } from "../dist/index.js";
-import { referenceFold } from "@obinexusltd/obix-validator";
+import { referenceFold } from "obix-validator";
 
 test("fixture version + checksum are stable", () => {
   assert.equal(FIXTURE_VERSION, "draft-0.2.1-addendum-a");

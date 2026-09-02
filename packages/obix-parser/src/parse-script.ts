@@ -1,5 +1,5 @@
-import type { Diagnostic, ObixScriptModel } from "@obinexusltd/obix-spec";
-import { DIAGNOSTIC_CODES } from "@obinexusltd/obix-spec";
+import type { Diagnostic, ObixScriptModel } from "obix-spec";
+import { DIAGNOSTIC_CODES } from "obix-spec";
 import { diag } from "./util.js";
 
 export interface ParseScriptResult {

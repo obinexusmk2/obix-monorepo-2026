@@ -1,19 +1,19 @@
 /**
- * @obinexusltd/obix-adapter-reactive
+ * obix-adapter-reactive
  *
  * The Reactive projection: current state, frozen props, subscribers, changedKeys
  * and an effects lifecycle. Transitions route through obix-ir.applyAction.
  * Effects consume state/props but never own component business logic — the
  * scheduler just re-checks the declared `while(state, props)` predicate.
  */
-import { applyAction, calculateChangedKeys } from "@obinexusltd/obix-ir";
+import { applyAction, calculateChangedKeys } from "obix-ir";
 import {
   createScheduler,
   defaultClock,
   evaluateWhile,
   type Clock,
   type RuntimeEffect,
-} from "@obinexusltd/obix-effects";
+} from "obix-effects";
 import type {
   DOPArtifact,
   State,
@@ -22,7 +22,7 @@ import type {
   ActionTrace,
   TransitionMeta,
   ValidationResult,
-} from "@obinexusltd/obix-spec";
+} from "obix-spec";
 
 export type Subscriber<S extends object> = (
   next: S,

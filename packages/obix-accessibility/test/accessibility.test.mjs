@@ -1,8 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { analyzeA11y, hasBlockingA11yError } from "../dist/index.js";
-import { analyzeTemplate } from "@obinexusltd/obix-template";
-import { parseTemplate } from "@obinexusltd/obix-parser";
+import { analyzeTemplate } from "obix-template";
+import { parseTemplate } from "obix-parser";
 
 const td = (html) => analyzeTemplate(parseTemplate(html).ast);
 

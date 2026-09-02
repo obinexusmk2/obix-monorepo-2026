@@ -13,7 +13,7 @@ import { join } from "node:path";
 import { pkgDir, ok, fail, die, BOLD, DIM } from "./_lib.mjs";
 
 const timer = await import(pathToFileURL(join(pkgDir("obix-timer"), "dist", "index.js")).href);
-const test = await import(pathToFileURL(join(pkgDir("obix-test"), "dist", "index.js")).href);
+const test = await import(pathToFileURL(join(pkgDir("obix-equivalence"), "dist", "index.js")).href);
 
 const { TimerDOP, EXPECTED_TRACES } = timer;
 const { checkEquivalence } = test;

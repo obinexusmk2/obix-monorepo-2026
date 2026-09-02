@@ -1,5 +1,5 @@
 {
-  "name": "@obinexusltd/obix-language-server",
+  "name": "obix-language-server",
   "version": "0.2.1",
   "description": "Editor intelligence for .obix files: diagnostics, completion, hover, go-to-definition. A thin layer over obix-parser and obix-compiler, which remain the source of truth.",
   "license": "MIT",
@@ -20,10 +20,10 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@obinexusltd/obix-spec": "0.2.1",
-    "@obinexusltd/obix-parser": "0.2.1",
-    "@obinexusltd/obix-template": "0.2.1",
-    "@obinexusltd/obix-compiler": "0.2.1"
+    "obix-spec": "0.2.1",
+    "obix-parser": "0.2.1",
+    "obix-template": "0.2.1",
+    "obix-compiler": "0.2.1"
   },
   "publishConfig": {
     "access": "public"

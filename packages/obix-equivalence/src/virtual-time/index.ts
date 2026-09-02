@@ -2,11 +2,11 @@
  * Deterministic virtual time for behavioural tests. Thin wrapper over
  * obix-effects.createVirtualClock + the reactive projection's effects lifecycle.
  */
-import { createVirtualClock } from "@obinexusltd/obix-effects";
-import { toReactive } from "@obinexusltd/obix-adapter-reactive";
-import type { DOPArtifact, State, Props } from "@obinexusltd/obix-spec";
+import { createVirtualClock } from "obix-effects";
+import { toReactive } from "obix-adapter-reactive";
+import type { DOPArtifact, State, Props } from "obix-spec";
 
-export { createVirtualClock } from "@obinexusltd/obix-effects";
+export { createVirtualClock } from "obix-effects";
 
 export interface VirtualRun<S extends object, P extends object> {
   readonly state: S;

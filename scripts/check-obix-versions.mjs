@@ -3,7 +3,7 @@
  * Failure code: OBIX-C011
  *
  *   - every package .version === OBIX_VERSION
- *   - every internal @obinexusltd/obix-* dependency pins the EXACT OBIX_VERSION
+ *   - every internal obix-* dependency pins the EXACT OBIX_VERSION
  *     (no "*", "^", "~", ">=", "workspace:*", ranges)
  */
 import { PACKAGES } from "./graph.mjs";
@@ -32,7 +32,7 @@ for (const short of PACKAGES) {
   for (const field of ["dependencies", "devDependencies", "peerDependencies", "optionalDependencies"]) {
     const deps = pkg[field] ?? {};
     for (const [name, spec] of Object.entries(deps)) {
-      if (!name.startsWith("@obinexusltd/obix-")) continue;
+      if (!name.startsWith("obix-")) continue;
       if (spec !== OBIX_VERSION) {
         fail(`${CODE} ${pkg.name}: ${field}["${name}"] = "${spec}" — must be exactly "${OBIX_VERSION}"`);
         errors++;

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { toFunctional } from "../dist/index.js";
-import { TimerDOP } from "@obinexusltd/obix-timer";
+import { TimerDOP } from "obix-timer";
 
 test("pure reduce / replay", () => {
   const F = toFunctional(TimerDOP);
