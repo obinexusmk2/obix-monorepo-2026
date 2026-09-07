@@ -15,6 +15,7 @@ const GATES = [
   ["runtime budget (GATE 8)", ["scripts/check-runtime-budget.mjs"]],
   ["ssr purity (GATE 9)", ["scripts/check-ssr-purity.mjs"]],
   ["npm pack dry-run (GATE 11,12)", ["scripts/pack-report.mjs"]],
+  ["core compatibility graph (10 obix-core-* packages)", ["scripts/check-core-graph.mjs"]],
 ];
 
 let failed = null;

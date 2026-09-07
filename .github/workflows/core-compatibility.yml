@@ -1,0 +1,242 @@
+name: core-compatibility
+
+# Verification lanes for the ten @obinexusltd/obix-core-* packages and the
+# amended @obinexusltd/obix umbrella CLI.
+#
+# NOTE: this file is authored, not a record of an executed run. A lane is only
+# "tested" once it has actually run on a given OS/runtime. No `continue-on-error`
+# is used to mask a required failure — the browser and native-execution lanes
+# are separate and clearly labelled precisely because they prove different,
+# narrower things.
+
+on:
+  push:
+    paths:
+      - "core/**"
+      - "runtime/obix/**"
+      - "scripts/check-core-graph.mjs"
+      - ".github/workflows/core-compatibility.yml"
+  pull_request:
+    paths:
+      - "core/**"
+      - "runtime/obix/**"
+      - "scripts/check-core-graph.mjs"
+      - ".github/workflows/core-compatibility.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: core-compat-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ── structural gate: names, versions, edges, acyclicity, frozen track ────
+  graph-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: npm ci
+      - name: check core-compatibility graph
+        run: node scripts/check-core-graph.mjs
+
+  # ── contract tests on Node — the primary support matrix ─────────────────
+  contract-node:
+    needs: graph-gate
+    strategy:
+      fail-fast: false
+      matrix:
+        # 22 + 24 are the maintained LTS lines; 26 is the current line.
+        node: ["22", "24", "26"]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      # obix-release: pinned umbrella checkout (do not edit the ref by hand)
+      - name: check out the amended umbrella at the release-pinned SHA
+        uses: actions/checkout@v4
+        with:
+          repository: obinexusmk2/obix
+          ref: 2cafa789f6cfa9a1d63ad618fb1e0fcfdd28e6a3
+          path: runtime/obix
+      - name: record the pinned umbrella SHA in the run summary
+        run: echo "umbrella_sha=2cafa789f6cfa9a1d63ad618fb1e0fcfdd28e6a3" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm ci
+      - name: build every core package + the umbrella
+        run: node scripts/check-core-graph.mjs --no-frozen-check
+      - name: core-* contract tests (node --test)
+        shell: bash
+        run: |
+          set -e
+          for d in core/obix-core-*; do
+            echo "── $d ──"
+            node --test "$d/test/"*.test.mjs
+          done
+      - name: umbrella CLI contract tests
+        run: node --test "runtime/obix/test/"*.test.mjs
+        shell: bash
+
+  # ── contract tests on Deno (pinned to a verified release) ───────────────
+  contract-deno:
+    needs: graph-gate
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: "2.9.6" # verified locally; bump deliberately
+      - run: npm ci
+      - run: node scripts/check-core-graph.mjs --no-frozen-check
+      - name: core-* contract tests (deno test)
+        shell: bash
+        run: |
+          set -e
+          for d in core/obix-core-*; do
+            echo "── $d ──"
+            deno test --quiet -A --no-check "$d/test/"*.test.mjs
+          done
+
+  # ── contract tests on Bun (pinned to a verified release) ────────────────
+  contract-bun:
+    needs: graph-gate
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.4.2" # verified locally; bump deliberately
+      - run: npm ci
+      - run: node scripts/check-core-graph.mjs --no-frozen-check
+      - name: core-* contract tests (bun test)
+        shell: bash
+        run: |
+          set -e
+          for d in core/obix-core-*; do
+            echo "── $d ──"
+            bun test "$d/test/"*.test.mjs
+          done
+
+  # ── the decisive milestone: a clean installed umbrella runs doctor ──────
+  packed-consumer:
+    needs: [contract-node]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      # obix-release: pinned umbrella checkout (do not edit the ref by hand)
+      - name: check out the amended umbrella at the release-pinned SHA
+        uses: actions/checkout@v4
+        with:
+          repository: obinexusmk2/obix
+          ref: 2cafa789f6cfa9a1d63ad618fb1e0fcfdd28e6a3
+          path: runtime/obix
+      - name: record the pinned umbrella SHA in the run summary
+        run: echo "umbrella_sha=2cafa789f6cfa9a1d63ad618fb1e0fcfdd28e6a3" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: "2.9.6"
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.4.2"
+      - run: npm ci
+      - name: pack all ten + the umbrella, install outside the workspace, run doctor
+        run: node core/fixtures/pack-and-verify.mjs
+
+  # ── browser lane: Chromium only. Other engines stay not-tested. ─────────
+  browser-chromium:
+    needs: graph-gate
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: npm ci
+      - run: node scripts/check-core-graph.mjs --no-frozen-check
+      - name: install Chromium for Playwright
+        run: npx --yes playwright@1.63.0 install --with-deps chromium
+      - name: obix-core-web DOM lifecycle in real Chromium
+        run: node --test core/obix-core-web/test/browser/dom.browser.mjs
+      # Firefox and WebKit are intentionally absent — they remain not-tested
+      # until a lane actually runs them.
+
+  # ── native lane: registry + selection + failure model ONLY. ─────────────
+  # Native EXECUTION is a separate qualification: it needs a real N-API/FFI
+  # provider, a compiled addon fixture and a build toolchain on the exact
+  # runtime/OS/arch/libc. This lane does not claim it.
+  native-registry:
+    needs: graph-gate
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: npm ci
+      - run: node scripts/check-core-graph.mjs --no-frozen-check
+      - name: obix-core-native registry / selection / lifecycle tests
+        run: node --test core/obix-core-native/test/*.test.mjs
+      - name: state the boundary
+        run: echo "Native EXECUTION is NOT qualified by this lane — see docs/core-compatibility/implementation-status.md"
+
+  # ── benchmark harness: measured numbers, uploaded as an artifact ────────
+  benchmark:
+    needs: [contract-node]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # obix-release: pinned umbrella checkout (do not edit the ref by hand)
+      - name: check out the amended umbrella at the release-pinned SHA
+        uses: actions/checkout@v4
+        with:
+          repository: obinexusmk2/obix
+          ref: 2cafa789f6cfa9a1d63ad618fb1e0fcfdd28e6a3
+          path: runtime/obix
+      - name: record the pinned umbrella SHA in the run summary
+        run: echo "umbrella_sha=2cafa789f6cfa9a1d63ad618fb1e0fcfdd28e6a3" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: npm ci
+      - run: node scripts/check-core-graph.mjs --no-frozen-check
+      - name: run the core-compatibility benchmarks
+        run: node core/bench/run-bench.mjs --out core/bench/last-run.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: core-compat-bench-${{ github.run_id }}
+          path: core/bench/last-run.json

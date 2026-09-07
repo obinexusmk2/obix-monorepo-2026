@@ -1,0 +1,20 @@
+{
+  "schema": "obix-release/release-source@1",
+  "tool_version": "1.0.0",
+  "umbrella": {
+    "role": "runtime/obix (nested repo, ignored by the monorepo /runtime/ rule)",
+    "github_slug": "obinexusmk2/obix",
+    "remote_url": "git@github.com:obinexusmk2/obix.git",
+    "sha": "2cafa789f6cfa9a1d63ad618fb1e0fcfdd28e6a3",
+    "branch": "release/core-compat-rc1",
+    "tree": "a289ac1a2c79d9a0071b4db4d8184c935ab59ce1"
+  },
+  "monorepo": {
+    "github_slug": "obinexusmk2/-obix-monorepo-2026",
+    "note": "this manifest is committed BY the monorepo release commit; it does not and cannot contain that commit's own SHA."
+  },
+  "ci": {
+    "workflow": ".github/workflows/core-compatibility.yml",
+    "requirement": "check out `umbrella.sha` into runtime/obix before build."
+  }
+}

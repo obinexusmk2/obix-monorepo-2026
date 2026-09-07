@@ -1,0 +1,66 @@
+{
+  "name": "@obinexusltd/obix-core-native",
+  "version": "0.1.0",
+  "description": "TypeScript native-provider registry, platform/ABI selection, lazy loading and managed handles. Node-API preferred; FFI opt-in and version-gated.",
+  "license": "MIT",
+  "author": "OBINexus Computing — Nnamdi Michael Okpala <okpalan@protonmail.com>",
+  "type": "module",
+  "private": false,
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./node": {
+      "types": "./dist/node.d.ts",
+      "import": "./dist/node.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "dist",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
+  "directories": {
+    "lib": "dist",
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test \"test/*.test.mjs\"",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "obix",
+    "obix-core",
+    "compatibility",
+    "host",
+    "native"
+  ],
+  "dependencies": {
+    "@obinexusltd/obix-core-capabilities": "0.1.0",
+    "@obinexusltd/obix-core-modules": "0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.2",
+    "@types/node": "^22.10.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obinexusmk2/obix-monorepo-2026.git",
+    "directory": "core/obix-core-native"
+  }
+}
