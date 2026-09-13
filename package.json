@@ -14,7 +14,8 @@
     "primitives/*",
     "overlays/obix-component-modal",
     "overlays/obix-component-dropdown",
-    "overlays/obix-component-tooltip"
+    "overlays/obix-component-tooltip",
+    "runtime/obix"
   ],
   "engines": {
     "node": ">=20.11.0"
