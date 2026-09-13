@@ -10,8 +10,8 @@
     "tree": "a289ac1a2c79d9a0071b4db4d8184c935ab59ce1"
   },
   "monorepo": {
-    "github_slug": "obinexusmk2/-obix-monorepo-2026",
-    "note": "this manifest is committed BY the monorepo release commit; it does not and cannot contain that commit's own SHA."
+    "github_slug": "obinexusmk2/obix-monorepo-2026",
+    "note": "this manifest is committed BY the monorepo release commit; it does not and cannot contain that commit's own SHA. github_slug corrected 2026-09-13 after the repo was renamed from obinexusmk2/-obix-monorepo-2026 (GitHub still redirects the old name)."
   },
   "ci": {
     "workflow": ".github/workflows/core-compatibility.yml",
