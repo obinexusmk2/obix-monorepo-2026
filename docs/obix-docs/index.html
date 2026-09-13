@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello OBIX — Hybrid</title>
+
+  <!--
+    HYBRID SOURCING, on purpose:
+    - "obix-core" resolves from the npm CDN — it's really published (obix-core@0.3.0).
+    - "obix-component-button" resolves from a relative path into this same
+      monorepo checkout — it is NOT published anywhere yet. One import map,
+      two different origins for two different OBIX component styles. This is
+      what makes this page "hybrid" rather than picking one source for
+      everything: nothing here requires a build step or a bundler either way.
+  -->
+  <script type="importmap">
+  {
+    "imports": {
+      "obix-core": "https://cdn.jsdelivr.net/npm/obix-core@0.3.0/dist/index.js",
+      "obix-component-button": "../../primitives/obix-component-button/dist/index.js"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --obix-primary: #0066cc;
+      --obix-primary-hover: #0052a3;
+      --obix-gray-50: #f9fafb;
+      --obix-gray-100: #f3f4f6;
+      --obix-gray-500: #6b7280;
+      --obix-gray-900: #111827;
+      --obix-touch-min: 48px;
+      --obix-space-2: 0.5rem;
+      --obix-space-3: 0.75rem;
+      --obix-space-4: 1rem;
+      --obix-space-6: 1.5rem;
+      --obix-radius: 8px;
+      --obix-shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: var(--obix-space-6);
+      background: var(--obix-gray-50);
+      color: var(--obix-gray-900);
+      line-height: 1.5;
+    }
+    h1 { font-size: 1.75rem; margin-bottom: var(--obix-space-2); }
+    h2 { font-size: 1.125rem; margin: 0 0 var(--obix-space-3); }
+    p { color: var(--obix-gray-500); }
+    code { background: var(--obix-gray-100); padding: 0.1em 0.4em; border-radius: 4px; }
+
+    .obix-card {
+      background: white;
+      border-radius: 12px;
+      padding: var(--obix-space-6);
+      box-shadow: var(--obix-shadow-sm);
+      margin-bottom: var(--obix-space-4);
+    }
+    .obix-card__kind {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      margin-bottom: var(--obix-space-3);
+    }
+    .obix-card__kind--dop { background: #e0e7ff; color: #3730a3; }
+    .obix-card__kind--element { background: #d1fae5; color: #065f46; }
+
+    /* obix-component-button's own emitted classes (see its docs/styling.md) */
+    .obix-button {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: var(--obix-touch-min); min-height: var(--obix-touch-min);
+      padding: 12px 24px; border: none; border-radius: var(--obix-radius);
+      font-size: 1rem; font-weight: 500; cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .obix-button--primary { background: var(--obix-primary); color: white; }
+    .obix-button--primary:hover { background: var(--obix-primary-hover); }
+    .obix-button__spinner {
+      display: inline-block; width: 16px; height: 16px; margin-right: 8px;
+      border: 2px solid rgba(255,255,255,0.4); border-top-color: white;
+      border-radius: 50%; animation: obix-spin 0.8s linear infinite;
+    }
+    @keyframes obix-spin { to { transform: rotate(360deg); } }
+
+    .row { display: flex; gap: var(--obix-space-3); align-items: center; flex-wrap: wrap; }
+
+    .state-preview {
+      background: #1f2937; color: #e5e7eb; padding: var(--obix-space-4);
+      border-radius: var(--obix-radius); font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.75rem; overflow-x: auto; line-height: 1.6; white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <h1>👋 Hello OBIX — Hybrid</h1>
+  <p>
+    One page, two real OBIX component styles, zero build step. Open DevTools
+    (F12) → Console to see what each one does under the hood.
+  </p>
+
+  <div class="obix-card">
+    <span class="obix-card__kind obix-card__kind--dop">DOP primitive · you own the render loop</span>
+    <h2>1. <code>createButton</code> from <code>obix-component-button</code></h2>
+    <p>
+      Returns plain <code>{ name, state, actions, render }</code>. Nothing
+      re-renders on its own — every action call is followed by a manual
+      <code>innerHTML = button.render(state)</code>, right here in this page's
+      own script.
+    </p>
+    <div class="row" id="dop-slot"></div>
+  </div>
+
+  <div class="obix-card">
+    <span class="obix-card__kind obix-card__kind--element">obix-core · a real custom element</span>
+    <h2>2. <code>defineElement</code> from <code>obix-core</code></h2>
+    <p>
+      Registers <code>&lt;obix-counter&gt;</code> as a genuine Web Component —
+      shadow DOM, a declarative <code>{state.count}</code> / <code>data-on-click</code>
+      template, and automatic re-rendering on every dispatch. No manual
+      <code>innerHTML</code> anywhere in this section.
+    </p>
+    <obix-counter></obix-counter>
+  </div>
+
+  <div class="obix-card">
+    <h2>🔍 What each side is actually doing</h2>
+    <p>Updates every time either demo above dispatches an action.</p>
+    <pre class="state-preview" id="inspector"></pre>
+  </div>
+
+  <script type="module">
+    import { createButton } from "obix-component-button";
+    import { defineElement } from "obix-core";
+
+    // ── 1. DOP primitive — this page owns the render loop ──────────────────
+    const helloBtn = createButton({ label: "Say hello", variant: "primary" });
+    let helloState = helloBtn.state;
+
+    const saveBtn = createButton({ label: "Save changes", variant: "primary" });
+    let saveState = saveBtn.state;
+
+    function renderDop() {
+      document.getElementById("dop-slot").innerHTML =
+        helloBtn.render(helloState) + saveBtn.render(saveState);
+      attachDopListeners();
+      updateInspector();
+    }
+
+    function attachDopListeners() {
+      const slot = document.getElementById("dop-slot");
+      const [helloEl, saveEl] = slot.querySelectorAll(".obix-button");
+      helloEl.addEventListener("click", () => {
+        helloState = helloBtn.actions.click(helloState);
+        console.log("%c[DOP] hello button clicked — new state:", "color:#3730a3", helloState);
+        renderDop();
+      });
+      saveEl.addEventListener("click", () => {
+        if (saveState.loading) return;
+        saveState = saveBtn.actions.setLoading(saveState, true);
+        renderDop();
+        console.log("%c[DOP] saving…", "color:#3730a3");
+        setTimeout(() => {
+          saveState = saveBtn.actions.setLoading(saveState, false);
+          console.log("%c[DOP] saved.", "color:#3730a3");
+          renderDop();
+        }, 1200);
+      });
+    }
+
+    renderDop();
+
+    // ── 2. obix-core custom element — the framework owns re-rendering ──────
+    const CounterDef = {
+      tag: "obix-counter",
+      state: { count: 0 },
+      actions: {
+        Increment: (state) => ({ count: state.count + 1 }),
+        Reset: () => ({ count: 0 }),
+      },
+      derived: {
+        label: (state) => `Count: ${state.count}`,
+      },
+      template: `
+        <p class="label">{label}</p>
+        <button class="primary" data-on-click="Increment">+1</button>
+        <button data-on-click="Reset">Reset</button>
+      `,
+      styles: `
+        :host { display: block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        .label { font-size: 1.1rem; font-weight: 500; margin: 0 0 12px; }
+        button {
+          min-width: 48px; min-height: 48px; padding: 12px 24px; margin-right: 8px;
+          border: none; border-radius: 8px; font-size: 1rem; font-weight: 500; cursor: pointer;
+          background: #e5e7eb; color: #111827;
+        }
+        button.primary { background: #0066cc; color: white; }
+        button.primary:hover { background: #0052a3; }
+        button:focus-visible { outline: 2px solid #0066cc; outline-offset: 2px; }
+      `,
+    };
+    defineElement(CounterDef);
+
+    document.addEventListener("obix:updated", (e) => {
+      if (e.detail?.tag !== "obix-counter") return;
+      const el = document.querySelector("obix-counter");
+      console.log("%c[obix-core] <obix-counter> updated — new state:", "color:#065f46", el.store?.state);
+      updateInspector();
+    });
+
+    // ── shared inspector ─────────────────────────────────────────────────
+    function updateInspector() {
+      const counterEl = document.querySelector("obix-counter");
+      const snapshot = {
+        dop: { hello: helloState, save: { loading: saveState.loading } },
+        element: { count: counterEl?.store?.state.count ?? 0 },
+      };
+      document.getElementById("inspector").textContent = JSON.stringify(snapshot, null, 2);
+    }
+
+    // give the custom element a tick to connect before the first read
+    setTimeout(updateInspector, 0);
+
+    window.OBIX_DEMO = { helloBtn, saveBtn, getCounter: () => document.querySelector("obix-counter").store };
+    console.log("%c👋 Hello OBIX (hybrid) loaded", "color:#0066cc;font-weight:bold;font-size:14px;");
+  </script>
+</body>
+</html>
