@@ -6,12 +6,26 @@ node_modules/
 npm-debug.log*
 
 # ─────────────────────────────────────────────────────────────
+# python (scripts/*.py tooling)
+# ─────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+
+# ─────────────────────────────────────────────────────────────
 # build output
 # ─────────────────────────────────────────────────────────────
 packages/*/dist/
 packages/*/*.tsbuildinfo
 suite/**/dist/
 suite/**/*.tsbuildinfo
+adapters/*/dist/
+adapters/*/*.tsbuildinfo
+primitives/*/dist/
+primitives/*/*.tsbuildinfo
+overlays/obix-component-*/dist/
+overlays/obix-component-*/*.tsbuildinfo
+runtime/obix/dist/
+runtime/obix/*.tsbuildinfo
 *.tsbuildinfo
 .tsbuild/
 
@@ -50,7 +64,7 @@ Thumbs.db
 /feedback/
 /forms/
 /navigation/
-/overlays/
+/overlays/obix-component-overlays/
 /runtime/
 /fixtures/
 /obix-monorepo/

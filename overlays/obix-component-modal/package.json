@@ -1,0 +1,37 @@
+{
+  "name": "@obinexusltd/obix-component-modal",
+  "version": "0.3.0",
+  "description": "OBIX ObixModal overlay — accessible dialog with focus-trap hooks, aria-modal, and configurable escape/backdrop close. Data-Oriented, zero dependencies.",
+  "license": "MIT",
+  "author": "OBINexus Computing — Nnamdi Michael Okpala <okpalan@protonmail.com>",
+  "type": "module",
+  "private": false,
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./src": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "files": ["src", "dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test \"test/*.test.mjs\""
+  },
+  "keywords": ["obix", "component", "modal", "dialog", "overlay", "accessibility", "dop"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obinexusmk2/obix-component-modal.git",
+    "directory": "overlays/obix-component-modal"
+  }
+}

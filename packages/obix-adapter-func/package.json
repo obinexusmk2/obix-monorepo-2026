@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/obinexusmk2/obix-monorepo-2026.git",
+    "url": "git+https://github.com/obinexusmk2/obix-adapter-func.git",
     "directory": "packages/obix-adapter-func"
   }
 }

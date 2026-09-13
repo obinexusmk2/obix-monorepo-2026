@@ -9,7 +9,12 @@
   "workspaces": [
     "packages/*",
     "suite/*",
-    "core/*"
+    "core/*",
+    "adapters/*",
+    "primitives/*",
+    "overlays/obix-component-modal",
+    "overlays/obix-component-dropdown",
+    "overlays/obix-component-tooltip"
   ],
   "engines": {
     "node": ">=20.11.0"
@@ -34,7 +39,13 @@
     "publish:all": "node scripts/publish-all.mjs",
     "build:suite": "node scripts/build-suite.mjs",
     "test:suite": "node scripts/test-suite.mjs",
-    "check:suite": "npm run build:suite && npm run test:suite"
+    "check:suite": "npm run build:suite && npm run test:suite",
+    "build:adapters": "npm run build --workspace adapters/obix-adapter-oop --workspace adapters/obix-adapter-reactive --workspace adapters/obix-adapter-ssr",
+    "test:adapters": "node --test \"adapters/*/test/*.test.mjs\"",
+    "build:primitives": "npm run build --workspace primitives/obix-component-button --workspace primitives/obix-component-card --workspace primitives/obix-component-image --workspace primitives/obix-component-video --workspace primitives/obix-component-link",
+    "test:primitives": "node --test \"primitives/*/test/*.test.mjs\"",
+    "build:overlays": "npm run build --workspace overlays/obix-component-modal --workspace overlays/obix-component-dropdown --workspace overlays/obix-component-tooltip",
+    "test:overlays": "node --test \"overlays/obix-component-modal/test/*.test.mjs\" \"overlays/obix-component-dropdown/test/*.test.mjs\" \"overlays/obix-component-tooltip/test/*.test.mjs\""
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

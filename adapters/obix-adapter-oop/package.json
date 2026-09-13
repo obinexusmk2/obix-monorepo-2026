@@ -1,0 +1,41 @@
+{
+  "name": "@obinexusltd/obix-adapter-oop",
+  "version": "0.3.0",
+  "description": "OBIX OOP projection — a generated class with read-only state, frozen props, and delegating action methods. Zero dependencies.",
+  "license": "MIT",
+  "author": "OBINexus Computing — Nnamdi Michael Okpala <okpalan@protonmail.com>",
+  "type": "module",
+  "private": false,
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./src": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test \"test/*.test.mjs\""
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obinexusmk2/obix-adapter-oop.git",
+    "directory": "adapters/obix-adapter-oop"
+  }
+}
