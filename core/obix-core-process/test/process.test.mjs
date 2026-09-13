@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, realpathSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { CompatError, canSpawn } from "../dist/index.js";
@@ -49,7 +49,12 @@ test("a cwd / path containing spaces works", async () => {
     writeFileSync(join(dir, "s.mjs"), "process.stdout.write(process.cwd())");
     const r = await runner.spawnTool({ command: NODE, args: ["s.mjs"], cwd: dir });
     assert.equal(r.code, 0);
-    assert.equal(dec(r.stdout), dir);
+    // Compare against the realpath, not the raw tmpdir() result: on macOS
+    // os.tmpdir() returns a path under /var, which is itself a symlink to
+    // /private/var, and a spawned child's own process.cwd() reports the
+    // resolved (/private/var/...) form. The path-with-spaces behavior this
+    // test targets is unaffected either way.
+    assert.equal(dec(r.stdout), realpathSync(dir));
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
