@@ -20,6 +20,8 @@
   "files": [
     "src",
     "dist",
+    "docs",
+    "test",
     "README.md",
     "LICENSE"
   ],

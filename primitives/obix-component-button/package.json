@@ -17,7 +17,7 @@
     "./src": "./src/index.ts",
     "./package.json": "./package.json"
   },
-  "files": ["src", "dist", "README.md", "LICENSE"],
+  "files": ["src", "dist", "docs", "test", "README.md", "LICENSE"],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "node --test \"test/*.test.mjs\""

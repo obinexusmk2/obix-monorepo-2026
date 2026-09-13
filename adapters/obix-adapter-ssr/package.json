@@ -20,6 +20,8 @@
   "files": [
     "src",
     "dist",
+    "docs",
+    "test",
     "README.md",
     "LICENSE"
   ],
@@ -35,7 +37,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/obinexusmk2/obix-adaptee-ssr.git",
+    "url": "git+https://github.com/obinexusmk2/obix-adapter-ssr.git",
     "directory": "adapters/obix-adapter-ssr"
   }
 }
