@@ -15,7 +15,8 @@
     "overlays/obix-component-modal",
     "overlays/obix-component-dropdown",
     "overlays/obix-component-tooltip",
-    "runtime/obix"
+    "runtime/obix",
+    "games/*"
   ],
   "engines": {
     "node": ">=20.11.0"
@@ -46,7 +47,10 @@
     "build:primitives": "npm run build --workspace primitives/obix-component-button --workspace primitives/obix-component-card --workspace primitives/obix-component-image --workspace primitives/obix-component-video --workspace primitives/obix-component-link",
     "test:primitives": "node --test \"primitives/*/test/*.test.mjs\"",
     "build:overlays": "npm run build --workspace overlays/obix-component-modal --workspace overlays/obix-component-dropdown --workspace overlays/obix-component-tooltip",
-    "test:overlays": "node --test \"overlays/obix-component-modal/test/*.test.mjs\" \"overlays/obix-component-dropdown/test/*.test.mjs\" \"overlays/obix-component-tooltip/test/*.test.mjs\""
+    "test:overlays": "node --test \"overlays/obix-component-modal/test/*.test.mjs\" \"overlays/obix-component-dropdown/test/*.test.mjs\" \"overlays/obix-component-tooltip/test/*.test.mjs\"",
+    "build:games": "npm run build --workspace games/obix-game-pong",
+    "test:games": "node --test \"games/*/test/*.test.mjs\"",
+    "demo:pong": "node scripts/_dev_static_server.mjs games/obix-game-pong 8080"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

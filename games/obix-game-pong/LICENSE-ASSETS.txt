@@ -1,0 +1,20 @@
+Assets: assets/images/background-grid.png, assets/images/background-empty.png,
+        assets/images/ball.png, assets/images/paddle-1.png, assets/images/paddle-2.png
+
+Copyright 2024 (c) Hektor Profe (https://hektorprofe.net)
+
+These assets are licensed under a Creative Commons Attribution 4.0
+International License: https://creativecommons.org/licenses/by/4.0/
+
+You are free to share and adapt this material for any purpose, including
+commercially, provided you give appropriate credit, link to the license,
+and indicate if changes were made. The filenames above were renamed from
+the original pack ("Background  Grid.png", "Background Empty.png",
+"Ball.png", "Paddle_1.png", "Paddle_2.png") for consistency with this
+repository's naming convention; no other modifications were made.
+
+Font: the demo (examples/) references the "Micro 5" typeface,
+https://fonts.google.com/specimen/Micro+5 (SIL Open Font License), loaded
+from Google Fonts at runtime rather than vendored in this package.
+
+See the full CC BY 4.0 legal text at the URL above for the complete terms.

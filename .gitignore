@@ -26,6 +26,8 @@ overlays/obix-component-*/dist/
 overlays/obix-component-*/*.tsbuildinfo
 runtime/obix/dist/
 runtime/obix/*.tsbuildinfo
+games/*/dist/
+games/*/*.tsbuildinfo
 *.tsbuildinfo
 .tsbuild/
 
